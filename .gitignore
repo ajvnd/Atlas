@@ -1,5 +1,5 @@
 bin/
 obj/
 .idea/
-/Atlas/wwwroot/node_modules/
+/wwwroot/node_modules/
 
