@@ -4,9 +4,9 @@ WORKDIR /App
 # Copy everything
 COPY . ./
 # Restore as distinct layers
-RUN dotnet restore Projecto.WebApp.csproj 
+RUN dotnet restore Atlas.csproj 
 # Build and publish a release
-RUN dotnet publish Projecto.WebApp.csproj -c Release -o out
+RUN dotnet publish Atlas.csproj -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
