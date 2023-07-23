@@ -4,6 +4,10 @@ namespace Atlas.Models;
 
 public class AtlasDbContext : DbContext
 {
+    public AtlasDbContext(DbContextOptions options) : base(options)
+    {
+    }
+    
     public DbSet<User> Users { get; set; }
 }
 
