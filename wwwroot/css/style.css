@@ -1,20 +1,39 @@
 ﻿body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
 .container {
     text-align: center;
     background-color: #0c0c0c;
-    padding: 40px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.atlas-menu-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.atlas-menu {
+    height: 50%;
+    color: white;
+    align-content: center;
+}
+.atlas-menu-content{
+    color: white;
+}
+
+.footer {
+    background-color: white;
+
 }
 
 h1 {
