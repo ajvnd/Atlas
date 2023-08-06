@@ -8,42 +8,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon</title>
-    <link rel="stylesheet" href="~/lib/devextreme/css/dx.material.blue.dark.compact.css" >
+    <link rel="stylesheet" href="~/lib/devextreme/css/dx.material.purple.dark.compact.css">
     <link rel="stylesheet" href="/css/style.css" asp-append-version="true">
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <div class="atlas-toolbar"></div>
-        <div class="atlas-menu-container dx-theme-accent-as-background-color">
-            <div class="atlas-menu-item dx-widget">
-                <i class="dx-icon dx-icon-product atlas-menu-item-icon dx-theme-background-color-as-text-color"></i>
-                <div class="atlas-menu-item-content">محصولات</div>
-            </div>
-            <div class="atlas-menu-item dx-widget">
-                <i class="dx-icon dx-icon-group atlas-menu-item-icon  dx-theme-background-color-as-text-color"></i>
-                <div class="atlas-menu-item-content">
-                    محققین
-                </div>
-            </div>
-            <div class="atlas-menu-item dx-widget">
-                <i class="dx-icon dx-icon-home atlas-menu-item-icon dx-theme-background-color-as-text-color"></i>
-                <div class="atlas-menu-item-content">موسسات آموزشی</div>
-            </div>
-            <div class="atlas-menu-item dx-widget">
-                <i class="dx-icon dx-icon-globe atlas-menu-item-icon dx-theme-background-color-as-text-color"></i>
-                <div class="atlas-menu-item-content" >شرکت ها</div>
-            </div>
-
+<div class="container dx-theme-background-color">
+    <div class="header ">
+        <div class="atlas-toolbar dx-theme-accent-as-background-color"></div>
+        <div class="atlas-tab-container">
+            <div class="atlas-tab-content"></div>
         </div>
     </div>
-    <div class="body">
-        <h1 class="dx-widget" style="font-size: 40px">بزودی</h1>
-        <p class="dx-widget">ما در حال کار روی یک چیز عالی هستیم. منتظر باشید!</p>
+    <div class="body " >
+        <div class="atlas-right-menu" style="height: 100%"></div>
         @RenderBody()
     </div>
-    <div class="footer dx-theme-background-color">
+    <div class="footer dx-theme-accent-as-background-color">
         <div class="dx-widget dx-theme-text-color" style="padding: 5px">
             تمامی حقوق محفوظ است
 
@@ -121,6 +102,24 @@
               }
           }
         }]
+      });
+      $(".atlas-tab-content").dxTabs({
+        items:[
+            {
+            template:'<div><i class="dx-icon dx-icon-product atlas-tab-content-icon"></i></div> <div style="margin-top:50px;font-size:25px">محصولات</div>',
+        },{
+            template:  '<div><i class="dx-icon dx-icon-group atlas-tab-content-icon"></i></div> <div style="margin-top:50px;font-size:25px">محققین</div>'
+        },{
+            template: '<div><i class="dx-icon dx-icon-home atlas-tab-content-icon"></i></div> <div style="margin-top:50px;font-size:25px">موسسات</div>'
+        },{
+            template: '<div><i class="dx-icon dx-icon-globe atlas-tab-content-icon"></i></div> <div style="margin-top:50px;font-size:25px">شرکت ها</div>'
+        }]
+      });
+      
+      $(".atlas-right-menu").dxMenu({
+        height:'100%',
+        displayExpr: 'name',
+        orientation:"vertical"
       });
     });
 </script>

@@ -11,41 +11,21 @@
     justify-content: space-between;
 }
 
-.atlas-menu-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    height: 100%;
-    margin: 0;
-}
-
-.atlas-menu-item {
-    height: 50%;
-    color: white;
-    margin-top: 20px;
-    align-content: center;
-}
-.atlas-menu-item-content{
-    padding-top:10px;
-}
-.atlas-menu-item-icon {
-    font-size: 6vh;
-    transition: transform 0.3s ease-in-out;
-}
-.atlas-menu-item-icon:hover{
-    transform: scale(1.2); /* Increase the size on hover */
-    cursor: pointer;
-}
-
-
 .footer {
     color: white;
-}
-
-.dx-button-has-icon {
-
 }
 
 .atlas-toolbar .dx-icon {
     font-size: 20px;
 }
+
+.dx-tab {
+    height: 160px;
+    
+}
+
+.atlas-tab-content-icon{
+    margin-right: 17px !important;
+    font-size: 60px !important;
+}
+
