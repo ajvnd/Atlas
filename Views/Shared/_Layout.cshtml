@@ -8,20 +8,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon</title>
-    <link rel="stylesheet" href="~/lib/devextreme/css/dx.material.purple.dark.compact.css">
+    <link rel="stylesheet" href="~/lib/devextreme/css/dx.material.blue.dark.compact.css">
     <link rel="stylesheet" href="/css/style.css" asp-append-version="true">
 </head>
 <body>
 
-<div class="container dx-theme-background-color">
+<div class="container">
     <div class="header ">
         <div class="atlas-toolbar dx-theme-accent-as-background-color"></div>
         <div class="atlas-tab-container">
             <div class="atlas-tab-content"></div>
         </div>
     </div>
-    <div class="body " >
-        <div class="atlas-right-menu" style="height: 100%"></div>
+    <div class="body">
+        <div class="body-left">
+            <div class="body-left-content">
+                <div id="#aa" class="atlas-form"></div>
+            </div>
+        </div>
+        <div class="body-right dx-theme-background-color">
+            <div class="body-right-content">
+            </div>
+        </div>
         @RenderBody()
     </div>
     <div class="footer dx-theme-accent-as-background-color">
@@ -103,6 +111,36 @@
           }
         }]
       });
+      
+      $(".body-right-content").dxForm({
+        labelMode:"floating",
+        items: [{
+            label:{
+                text:'استان'
+            },
+            editorType:'dxTagBox',
+        },
+        {
+            label:{
+                text:'هویت توسعه دهنده'
+            },
+            editorType:'dxTagBox',
+        },
+         {
+            label:{
+                text:'دسته کاربردی'
+            },
+            editorType:'dxTagBox',
+        },
+         {
+            label:{
+                text:'نوع خدمات'
+            },
+            editorType:'dxTagBox',
+        }
+        ],
+      });
+      
       $(".atlas-tab-content").dxTabs({
         items:[
             {
@@ -116,11 +154,6 @@
         }]
       });
       
-      $(".atlas-right-menu").dxMenu({
-        height:'100%',
-        displayExpr: 'name',
-        orientation:"vertical"
-      });
     });
 </script>
 </body>

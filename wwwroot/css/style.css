@@ -20,12 +20,27 @@
 }
 
 .dx-tab {
-    height: 160px;
-    
+    height: 150px;
+
 }
 
-.atlas-tab-content-icon{
+.atlas-tab-content-icon {
     margin-right: 17px !important;
-    font-size: 60px !important;
+    font-size: 70px !important;
 }
 
+.body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
+.body-left{
+    width: 75%;
+}
+.body-right{
+    width: 25%;
+}
+.body-right-content{
+    padding: 15px;
+}
