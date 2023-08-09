@@ -1,8 +1,13 @@
-﻿body {
-    margin: 0;
-    padding: 0;
+﻿@font-face {
+    font-family: "Noto Kufi Arabic";
+    src: url('/fonts/NotoKufiArabic-VariableFont_wght.ttf') format('truetype');
 }
 
+body {
+    margin: 0;
+    padding: 0;
+
+}
 .container {
     text-align: center;
     display: flex;
@@ -11,8 +16,16 @@
     justify-content: space-between;
 }
 
-.footer {
-    color: white;
+.sub-header{
+    display: flex;
+}
+.sub-header-right{
+    width: 50%;
+    font-size: 30px;
+    padding: 20px;
+}
+.sub-header-left{
+    width: 50%;
 }
 
 .atlas-toolbar .dx-icon {
@@ -20,13 +33,14 @@
 }
 
 .dx-tab {
-    height: 150px;
+    height: 130px;
 
 }
 
 .atlas-tab-content-icon {
-    margin-right: 17px !important;
-    font-size: 70px !important;
+    margin-right: 8px !important;
+    display: initial !important;
+    font-size: 50px !important;
 }
 
 .body{

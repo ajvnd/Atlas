@@ -8,18 +8,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon</title>
-    <link rel="stylesheet" href="~/lib/devextreme/css/dx.material.blue.dark.compact.css">
+    <link rel="stylesheet" href="~/lib/devextreme/css/dx.greenmist.compact.css">
     <link rel="stylesheet" href="/css/style.css" asp-append-version="true">
 </head>
 <body>
 
 <div class="container">
-    <div class="header ">
+    <div class="header">
         <div class="atlas-toolbar dx-theme-accent-as-background-color"></div>
+        <div class="sub-header">
+            <div class="sub-header-left"></div>
+            <div class="sub-header-right">اطلس ایران</div>
+
+        </div>
         <div class="atlas-tab-container">
             <div class="atlas-tab-content"></div>
         </div>
     </div>
+
     <div class="body">
         <div class="body-left">
             <div class="body-left-content">
@@ -68,15 +74,12 @@
             cssClass:'atlas-menu-content',
             dataSource:[
                       {
-                         id: '1',
                          name: 'اطلس',
                        }, 
                        {
-                         id: '1',
                          name: 'راهنما',
                        },
                        {
-                         id: '1',
                          name: 'درباره ما',
                        },
                     ]
@@ -85,23 +88,8 @@
         }
         },
         {
-          widget:'dxTextBox',
-          location: "after",
-          options: {
-            width: '20vw',
-            buttons:[
-                {
-                    name:'search',
-                    options:{
-                        icon:'find'
-                    }
-                }
-            ]
-          }
-        },
-        {
           widget: 'dxButton',
-          location: 'after',
+          location: 'before',
           options: {
               icon:'login',
               text:'ورود',
@@ -109,7 +97,15 @@
                 signInPopUp.show();
               }
           }
-        }]
+        },
+        {
+          widget:'dxSwitch',
+          location: "after",
+          options: {
+            value: false,
+          }
+        },
+        ]
       });
       
       $(".body-right-content").dxForm({
@@ -144,13 +140,13 @@
       $(".atlas-tab-content").dxTabs({
         items:[
             {
-            template:'<div><i class="dx-icon dx-icon-product atlas-tab-content-icon"></i></div> <div style="margin-top:50px;font-size:25px">محصولات</div>',
+            template:'<div><i class="dx-icon dx-icon-product atlas-tab-content-icon">محصولات</i></div> ',
         },{
-            template:  '<div><i class="dx-icon dx-icon-group atlas-tab-content-icon"></i></div> <div style="margin-top:50px;font-size:25px">محققین</div>'
+            template:  '<div><i class="dx-icon dx-icon-group atlas-tab-content-icon">محققین</i></div>'
         },{
-            template: '<div><i class="dx-icon dx-icon-home atlas-tab-content-icon"></i></div> <div style="margin-top:50px;font-size:25px">موسسات</div>'
+            template: '<div><i class="dx-icon dx-icon-home atlas-tab-content-icon">موسسات</i></div>'
         },{
-            template: '<div><i class="dx-icon dx-icon-globe atlas-tab-content-icon"></i></div> <div style="margin-top:50px;font-size:25px">شرکت ها</div>'
+            template: '<div><i class="dx-icon dx-icon-globe atlas-tab-content-icon">شرکت ها</i></div>'
         }]
       });
       
