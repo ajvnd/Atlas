@@ -1,9 +1,4 @@
-﻿@font-face {
-    font-family: "Noto Kufi Arabic";
-    src: url('/fonts/NotoKufiArabic-VariableFont_wght.ttf') format('truetype');
-}
-
-body {
+﻿body {
     margin: 0;
     padding: 0;
 
@@ -22,7 +17,7 @@ body {
 .sub-header-right{
     width: 50%;
     font-size: 30px;
-    padding: 20px;
+    padding: 10px;
 }
 .sub-header-left{
     width: 50%;
@@ -33,14 +28,14 @@ body {
 }
 
 .dx-tab {
-    height: 130px;
+    height: 80px;
 
 }
 
 .atlas-tab-content-icon {
     margin-right: 8px !important;
     display: initial !important;
-    font-size: 50px !important;
+    font-size: 35px !important;
 }
 
 .body{
