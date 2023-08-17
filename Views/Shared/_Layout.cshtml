@@ -64,9 +64,27 @@
         
       let signInPopUp = $(".atlas-signin-popup").dxPopup({
         showCloseButton:true,
-        width: '50%',
-        height: '50%',
-        title:'ورود'
+        width: '25%',
+        height: '25%',
+        title:'ورود',
+        contentTemplate:(contentElement)=>{
+            return $("<div/>").dxForm({
+                    items: [{
+                        label:{
+                            text:'نام کاربری'
+                        },
+                        editorType:'dxTextBox',
+                    },
+                    {
+                        label:{
+                            text:'رمز عبور'
+                        },
+                        editorType:'dxTextBox',
+                    },
+     
+                    ],
+            })
+        }
       }).dxPopup('instance');
       
       $(".atlas-toolbar").dxToolbar({
@@ -114,7 +132,6 @@
       });
       
       $(".body-right-content").dxForm({
-        labelMode:"floating",
         items: [{
             label:{
                 text:'استان'
@@ -162,7 +179,8 @@
                 name: 'areas',
                 dataSource: DevExpress.viz.map.sources.eurasia
                 
-            }]
+            }],
+            controlBar:{enabled:false},
           }
       );
       
