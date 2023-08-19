@@ -16,5 +16,11 @@ let markersArray = [
         attributes: {
             name: 'خراسان رضوی',
         }
+    },
+    {
+        coordinates: [52.037301, 33.074633],
+        attributes: {
+            name: 'اصفهان',
+        }
     }
 ];
