@@ -17,8 +17,10 @@
     <div class="header">
         <div class="atlas-toolbar dx-theme-accent-as-background-color"></div>
         <div class="sub-header dx-theme-border-color-as-background-color">
-            <div class="sub-header-left"></div>
-            <div class="sub-header-right dx-widget">اطلس ایران</div>
+            <div class="sub-header-left">
+                <img style="padding: 5px"  src="~/images/logo.png" width="150" height="62"/>
+            </div>
+            <div class="sub-header-right dx-widget" style="padding-top: 20px">اطلس ایران</div>
 
         </div>
         <div class="atlas-tab-container">
@@ -54,9 +56,9 @@
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/iran.js"></script>
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/europe.js"></script>
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/usa.js"></script>
-<script type="text/javascript" src="~/js/atlas.signin.js"></script>
-<script type="text/javascript" src="~/js/atlas.map.marker.js"></script>
-<script type="text/javascript" src="~/js/atlas.tabs.js"></script>
+<script type="text/javascript" src="~/js/atlas.signin.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/atlas.map.marker.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/atlas.tabs.js" asp-append-version="true"></script>
 <script type="text/javascript">
     DevExpress.config({
         rtlEnabled:true,
