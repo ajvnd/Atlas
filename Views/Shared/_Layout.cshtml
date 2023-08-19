@@ -56,6 +56,7 @@
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/usa.js"></script>
 <script type="text/javascript" src="~/js/atlas.signin.js"></script>
 <script type="text/javascript" src="~/js/atlas.map.marker.js"></script>
+<script type="text/javascript" src="~/js/atlas.tabs.js"></script>
 <script type="text/javascript">
     DevExpress.config({
         rtlEnabled:true,
@@ -132,42 +133,7 @@
         ]
       });
       
-      $(".body-right-content").dxForm({
-        items: [{
-            label:{
-                text:'استان'
-            },
-            editorType:'dxTagBox',
-        },
-        {
-            label:{
-                text:'هویت توسعه دهنده'
-            },
-            editorType:'dxTagBox',
-        },
-         {
-            label:{
-                text:'دسته کاربردی'
-            },
-            editorType:'dxTagBox',
-        },
-         {
-            label:{
-                text:'نوع خدمات'
-            },
-            editorType:'dxTagBox',
-        },
-        {
-            label:{
-                text:'وضعیت'    
-            },
-            editorType:'dxSwitch',
-            editorOptions:{
-                
-            }
-        }
-        ],
-      });
+     
       
       $(".body-left-content").dxVectorMap(
           {
@@ -196,15 +162,35 @@
           }
       );
       
+      $(".body-right-content").dxForm({
+          items:products
+      });
+      
       $(".atlas-tab-content").dxTabs({
+        keyExpr:'key',
+        selectedItem:0,
+        onItemClick:function (e){
+            let bodyLeftContent=$(".body-right-content").dxForm('instance');
+            switch (e.itemData.key){
+                case 0:bodyLeftContent.option('items',products);break;
+                case 1:bodyLeftContent.option('items',researchers);break;
+                case 2:bodyLeftContent.option('items',organizations);break;
+                case 3:bodyLeftContent.option('items',companies);break;
+            }
+        },
         items:[
             {
+            key:0,
             template:'<div><i class="dx-icon dx-icon-product atlas-tab-content-icon">محصولات</i></div> ',
+            
         },{
+            key:1,
             template:  '<div><i class="dx-icon dx-icon-group atlas-tab-content-icon">محققین</i></div>'
         },{
+            key:2,
             template: '<div><i class="dx-icon dx-icon-home atlas-tab-content-icon">موسسات</i></div>'
         },{
+            key:3,
             template: '<div><i class="dx-icon dx-icon-globe atlas-tab-content-icon">شرکت ها</i></div>'
         }]
       });
