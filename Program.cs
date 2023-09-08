@@ -18,6 +18,7 @@ var app = builder.Build();
 using var serviceScope = app.Services.CreateScope();
 using var dbContext = serviceScope.ServiceProvider.GetRequiredService<AtlasDbContext>();
 
+dbContext.Database.EnsureDeleted();
 dbContext.Database.EnsureCreated();
 
 app.UseStaticFiles();
