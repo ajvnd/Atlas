@@ -29,14 +29,6 @@
     </div>
 
     <div class="body">
-        <div class="body-left">
-            <div class="body-left-content">
-            </div>
-        </div>
-        <div class="body-right dx-theme-background-color">
-            <div class="body-right-content">
-            </div>
-        </div>
         @RenderBody()
     </div>
     <div class="footer dx-theme-accent-as-background-color">
@@ -48,6 +40,8 @@
     
 </div>
 
+
+
 <div class="atlas-signin-popup"></div>
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="~/lib/devextreme/js/dx.all.js"></script>
@@ -57,17 +51,18 @@
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/iran.js"></script>
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/europe.js"></script>
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/usa.js"></script>
+<script type="text/javascript" src="~/lib/devextreme/js/localization/dx.messages.fa.js"></script>
+<script type="text/javascript" src="~/js/atlas.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/atlas.toolbar.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/atlas.signin.js" asp-append-version="true"></script>
-<script type="text/javascript" src="~/js/atlas.map.marker.js" asp-append-version="true"></script>
-<script type="text/javascript" src="~/js/atlas.tabs.js" asp-append-version="true"></script>
 <script type="text/javascript">
     DevExpress.config({
         rtlEnabled:true,
         editorStylingMode:"outlined",
     })
+    DevExpress.localization.locale('fa-IR');
     $(function (){
-        
+      //ToDo: Sync this with the main Layout
       let signInPopUp = $(".atlas-signin-popup").dxPopup({
         showCloseButton:true,
         width: '25%',
@@ -92,66 +87,6 @@
             })
         }
       }).dxPopup('instance');
-      
-      $(".body-left-content").dxVectorMap(
-          {
-              zoomFactor:2.5,
-              width:"100%",
-              height:"100%",
-              bounds: [43.13321914472885, 50.83717618250027, 61.96, 8.33],
-              tooltip: {
-                enabled: true,
-                customizeTooltip(arg) {
-                    if (arg.layer.type === 'marker') {
-                      return { text: arg.attribute('name') };
-                    }
-                    return null;
-                  },
-                },
-            layers:[{
-                name: 'areas',
-                dataSource: DevExpress.viz.map.sources.eurasia
-                
-            },
-            {
-                dataSource:markersArray,
-            }],
-            controlBar:{enabled:false},
-          }
-      );
-      
-      $(".body-right-content").dxForm({
-          items:products
-      });
-      
-      $(".atlas-tab-content").dxTabs({
-        keyExpr:'key',
-        selectedItem:0,
-        onItemClick:function (e){
-            let bodyLeftContent=$(".body-right-content").dxForm('instance');
-            switch (e.itemData.key){
-                case 0:bodyLeftContent.option('items',products);break;
-                case 1:bodyLeftContent.option('items',researchers);break;
-                case 2:bodyLeftContent.option('items',organizations);break;
-                case 3:bodyLeftContent.option('items',companies);break;
-            }
-        },
-        items:[
-            {
-            key:0,
-            template:'<div><i class="dx-icon dx-icon-product atlas-tab-content-icon">محصولات</i></div> ',
-            
-        },{
-            key:1,
-            template:  '<div><i class="dx-icon dx-icon-group atlas-tab-content-icon">محققین</i></div>'
-        },{
-            key:2,
-            template: '<div><i class="dx-icon dx-icon-home atlas-tab-content-icon">موسسات</i></div>'
-        },{
-            key:3,
-            template: '<div><i class="dx-icon dx-icon-globe atlas-tab-content-icon">شرکت ها</i></div>'
-        }]
-      });
       
     });
 </script>

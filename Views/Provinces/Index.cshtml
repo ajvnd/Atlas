@@ -1,0 +1,72 @@
+
+@{
+    ViewBag.Title = "استان ها";
+    Layout = "_Layout.Admin";
+}
+
+
+<div class="province-grid"></div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(function () {
+        //TODO: Make it simple
+        $(".province-grid").dxDataGrid(
+            {
+                columnAutoWidth: true,
+                height: "100%",
+                editing: {
+                    mode: 'popup',
+                    allowAdding:true,
+                    allowUpdating:true,
+                    allowDeleting:true,
+                },
+                searchPanel:{visible:true},
+                onRowUpdating: function (e) {
+                    e.newData = Object.assign({}, e.oldData, e.newData);
+                },
+                dataSource: new DevExpress.data.CustomStore({
+                    key: "id",
+                    load: function (options) {
+                            const deferred = $.Deferred();
+                            makePostCall("/Provinces/List/", {}, (result) => {
+                                deferred.resolve(result);
+                            }, () => {
+                                deferred.reject();
+                            });
+                            return deferred.promise();
+                    },
+                    insert: function (values) {
+                       const deferred = $.Deferred();
+                        makePostCall("Provinces/Add/", values, (f) => {
+                            deferred.resolve();
+                        }, (e) => {
+                            deferred.reject(e.responseText);
+                        })
+                        return deferred.promise();
+                    },
+                    update: function (key, values) {
+                        const deferred = $.Deferred();
+                        makePostCall(`Provinces/Edit/${key}`, values, () => {
+                            deferred.resolve();
+                        }, (e) => {
+                            deferred.reject(e.responseText);
+                        })
+                        return deferred.promise();
+                    },
+                    remove: function (key) {
+                        const deferred = $.Deferred();
+                        makeGetCall(`Provinces/Delete/${key}`, () => {
+                            deferred.resolve();
+                        }, (e) => {
+                            deferred.reject(e.responseText);
+                        })
+                        return deferred.promise();
+                    }
+                }),
+            });
+    });
+    </script>
+
+}
