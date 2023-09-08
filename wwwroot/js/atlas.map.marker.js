@@ -22,5 +22,11 @@ let markersArray = [
         attributes: {
             name: 'اصفهان',
         }
+    },
+    {
+        coordinates: [49.724471, 36.05],
+        attributes: {
+            name: 'قزوین',
+        }
     }
 ];
