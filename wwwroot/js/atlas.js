@@ -36,15 +36,20 @@ makeFormCall = function (url, data, success, error) {
 }
 
 //#region Devextreme Util
-devextremeLoadCall = function (url, options, values) {
+devextremeLoadCall = function (url, options, isRemote) {
     const deferred = $.Deferred();
-    makePostCall(url, values, (result) => {
-        deferred.resolve(result);
+    makePostCall(url, options, (result) => {
+        if (isRemote) {
+            deferred.resolve(result.data, {totalCount: result.totalCount});
+        } else {
+            deferred.resolve(result);
+        }
     }, () => {
         deferred.reject();
     })
     return deferred.promise();
 }
+
 
 devextremeAddCall = function (url, values) {
     const deferred = $.Deferred();
@@ -56,9 +61,9 @@ devextremeAddCall = function (url, values) {
     return deferred.promise();
 }
 
-devextremeUpdateCall = function (url, key, values) {
+devextremeUpdateCall = function (url, values) {
     const deferred = $.Deferred();
-    makePostCall(url + key, values, () => {
+    makePostCall(url, values, () => {
         deferred.resolve();
     }, (e) => {
         deferred.reject(e.responseText);
@@ -66,9 +71,9 @@ devextremeUpdateCall = function (url, key, values) {
     return deferred.promise();
 }
 
-devextremeRemoveCall = function (url, key) {
+devextremeRemoveCall = function (url) {
     const deferred = $.Deferred();
-    makeGetCall(url + key, () => {
+    makeGetCall(url, () => {
         deferred.resolve();
     }, (e) => {
         deferred.reject(e.responseText);

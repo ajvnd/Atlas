@@ -9,6 +9,9 @@ $(function () {
                     items: [
                         {
                             text: 'اطلس',
+                            onClick() {
+                                document.location.href = "/"
+                            }
                         },
                         {
                             text: 'مدیریت',
@@ -47,6 +50,12 @@ $(function () {
                                             text: 'استان',
                                             onClick: () => {
                                                 document.location.href = "/Provinces/Index"
+                                            }
+                                        },
+                                        {
+                                            text: 'حوزه همکاری',
+                                            onClick: () => {
+                                                document.location.href = "/Domains/Index"
                                             }
                                         }
                                     ]
