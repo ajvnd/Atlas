@@ -1,3 +1,4 @@
+using Atlas.Extensions;
 using Atlas.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,12 +31,12 @@ public class ProvincesController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] (string persianTitle, string englishTitle) viewModel)
+    public async Task<IActionResult> Add([FromBody] Province viewModel)
     {
         var province = new Province()
         {
-            PersianTitle = viewModel.persianTitle,
-            EnglishTitle = viewModel.englishTitle,
+            PersianTitle = viewModel.PersianTitle?.PersianToEnglishDigit(),
+            EnglishTitle = viewModel.EnglishTitle?.PersianToEnglishDigit(),
             ModifiedDate = DateTime.Now
         };
 
@@ -47,16 +48,17 @@ public class ProvincesController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Edit([FromRoute] int id,
-        [FromBody] (string persianTitle, string englishTitle) viewModel)
+        [FromBody] Province viewModel)
     {
         var province = await _provinces.FindAsync(id);
 
         if (province == null)
             return NotFound();
 
-        province.PersianTitle = viewModel.persianTitle;
-        province.EnglishTitle = viewModel.englishTitle;
+        province.PersianTitle = viewModel.PersianTitle;
+        province.EnglishTitle = viewModel.EnglishTitle;
 
+        _dbContext.Update(province);
         await _dbContext.SaveChangesAsync();
         return NoContent();
     }
