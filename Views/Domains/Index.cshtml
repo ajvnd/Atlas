@@ -5,13 +5,13 @@
 }
 
 
-<div class="province-grid"></div>
+<div class="domain-grid"></div>
 
 @section Scripts{
 
     <script type="text/javascript">
     $(function () {
-        $(".province-grid").dxDataGrid(
+        $(".domain-grid").dxDataGrid(
             {
                 columnAutoWidth: true,
                 height: "100%",
@@ -28,28 +28,21 @@
                 dataSource: new DevExpress.data.CustomStore({
                     key: "id",
                     load: function (options) {
-                        return devextremeLoadCall("/Provinces/List/",options,false);
+                        return devextremeLoadCall("/Domains/List/",options,false);
                     },
                     insert: function (values) {
-                        return devextremeAddCall("/Provinces/Add/",values)
+                        return devextremeAddCall("/Domains/Add/",values)
                     },
                     update: function (key, values) {
-                        return devextremeUpdateCall(`/Provinces/Edit/${key}`,values)
+                        return devextremeUpdateCall(`/Domains/Edit/${key}`,values)
                     },
                     remove: function (key) {
-                        return devextremeRemoveCall(`/Provinces/Delete/${key}`);
+                        return devextremeRemoveCall(`/Domains/Delete/${key}`);
                     }
                 }),
                 columns:[{
-                    dataField:'persianTitle',
+                    dataField:'title',
                     caption:'عنوان',
-                    validationRules: [{type: 'required'}],
-
-                },
-                {
-                    dataField:'englishTitle',
-                    caption:'عنوان انگلیسی',
-                    visible:false,
                     validationRules: [{type: 'required'}],
                 },
                 {
