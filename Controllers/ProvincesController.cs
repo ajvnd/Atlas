@@ -57,6 +57,7 @@ public class ProvincesController : Controller
 
         province.PersianTitle = viewModel.PersianTitle;
         province.EnglishTitle = viewModel.EnglishTitle;
+        province.ModifiedDate=DateTime.Now;
 
         _dbContext.Update(province);
         await _dbContext.SaveChangesAsync();

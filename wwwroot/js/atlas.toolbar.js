@@ -49,6 +49,12 @@ $(function () {
                                             onClick: () => {
                                                 document.location.href = "/Domains/Index"
                                             }
+                                        },
+                                        {
+                                            text: 'نوع قرار داد',
+                                            onClick: () => {
+                                                document.location.href = "/ContractTypes/Index"
+                                            }
                                         }
                                     ]
                                 }

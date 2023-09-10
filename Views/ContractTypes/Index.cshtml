@@ -1,0 +1,59 @@
+
+@{
+    ViewBag.Title = "استان ها";
+    Layout = "_Layout.Admin";
+}
+
+
+<div class="contract-types-grid"></div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(function () {
+        $(".contract-types-grid").dxDataGrid(
+            {
+                columnAutoWidth: true,
+                height: "100%",
+                editing: {
+                    mode: 'popup',
+                    allowAdding:true,
+                    allowUpdating:true,
+                    allowDeleting:true,
+                },
+                searchPanel:{visible:true},
+                onRowUpdating: function (e) {
+                    e.newData = Object.assign({}, e.oldData, e.newData);
+                },
+                dataSource: new DevExpress.data.CustomStore({
+                    key: "id",
+                    load: function (options) {
+                        return devextremeLoadCall("/ContractTypes/List/",options,false);
+                    },
+                    insert: function (values) {
+                        return devextremeAddCall("/ContractTypes/Add/",values)
+                    },
+                    update: function (key, values) {
+                        return devextremeUpdateCall(`/ContractTypes/Edit/${key}`,values)
+                    },
+                    remove: function (key) {
+                        return devextremeRemoveCall(`/ContractTypes/Delete/${key}`);
+                    }
+                }),
+                columns:[{
+                    dataField:'title',
+                    caption:'عنوان',
+                    validationRules: [{type: 'required'}],
+                },
+                {
+                    dataField:'persianModifiedDate',
+                    caption:'زمان آخرین تغییر',                    
+                    formItem:{
+                        visible:false,
+                    }
+                }]
+            });
+    });
+    </script>
+
+}

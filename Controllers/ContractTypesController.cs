@@ -5,17 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Controllers;
 
-public class DomainsController : Controller
+public class ContractTypesController : Controller
 {
     private readonly AtlasDbContext _dbContext;
-    private readonly DbSet<Domain> _domains;
+    private readonly DbSet<ContractType> _contractTypes;
 
-    public DomainsController(AtlasDbContext dbContext)
+    public ContractTypesController(AtlasDbContext dbContext)
     {
         _dbContext = dbContext;
-        _domains = _dbContext.Set<Domain>();
+        _contractTypes = _dbContext.Set<ContractType>();
     }
-
+    
+    
     [HttpGet]
     public IActionResult Index()
     {
@@ -25,21 +26,21 @@ public class DomainsController : Controller
     [HttpPost]
     public async Task<IActionResult> List()
     {
-        var results = await _domains.AsNoTracking().ToListAsync();
+        var results = await _contractTypes.AsNoTracking().ToListAsync();
 
         return Ok(results);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] Domain viewModel)
+    public async Task<IActionResult> Add([FromBody] ContractType viewModel)
     {
-        var domain = new Domain()
+        var contractType = new ContractType()
         {
             Title = viewModel.Title.PersianToEnglishDigit(),
             ModifiedDate = DateTime.Now
         };
 
-        await _domains.AddAsync(domain);
+        await _contractTypes.AddAsync(contractType);
         await _dbContext.SaveChangesAsync();
 
         return NoContent();
@@ -47,17 +48,17 @@ public class DomainsController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Edit([FromRoute] int id,
-        [FromBody] Domain viewModel)
+        [FromBody] ContractType viewModel)
     {
-        var domain = await _domains.FindAsync(id);
+        var contractType = await _contractTypes.FindAsync(id);
 
-        if (domain == null)
+        if (contractType == null)
             return NotFound();
 
-        domain.Title = viewModel.Title.PersianToEnglishDigit();
-        domain.ModifiedDate=DateTime.Now;
+        contractType.Title = viewModel.Title.PersianToEnglishDigit();
+        contractType.ModifiedDate=DateTime.Now;
 
-        _domains.Update(domain);
+        _contractTypes.Update(contractType);
         await _dbContext.SaveChangesAsync();
         return NoContent();
     }
@@ -65,12 +66,12 @@ public class DomainsController : Controller
     [HttpGet]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var domain = await _domains.FindAsync(id);
+        var contractType = await _contractTypes.FindAsync(id);
 
-        if (domain == null)
+        if (contractType == null)
             return NotFound();
 
-        _domains.Remove(domain);
+        _contractTypes.Remove(contractType);
         await _dbContext.SaveChangesAsync();
 
         return NoContent();

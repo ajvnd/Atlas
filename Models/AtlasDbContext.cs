@@ -13,7 +13,7 @@ public class AtlasDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Province> Provinces { get; set; }
     public DbSet<Domain> Domains { get; set; }
-    public DbSet<Contract> Contracts { get; set; }
+    public DbSet<ContractType> ContractTypes { get; set; }
 }
 
 public class BaseEntity
@@ -42,7 +42,7 @@ public class Domain : BaseEntity
     public string Title { get; set; }
 }
 
-public class Contract : BaseEntity
+public class ContractType : BaseEntity
 {
     public string Title { get; set; }
 }
