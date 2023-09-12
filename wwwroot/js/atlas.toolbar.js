@@ -34,6 +34,9 @@ $(function () {
                                 },
                                 {
                                     text: 'کاربران',
+                                    onClick: () => {
+                                        document.location.href = "/Users/Index"
+                                    }
                                 },
                                 {
                                     text: 'زیر ساخت',

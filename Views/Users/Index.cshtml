@@ -1,0 +1,121 @@
+
+@{
+    ViewBag.Title = "استان ها";
+    Layout = "_Layout.Admin";
+}
+
+
+<div class="user-grid"></div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(function () {
+        $(".user-grid").dxDataGrid(
+            {
+                columnAutoWidth: true,
+                height: "100%",
+                editing: {
+                    mode: 'popup',
+                    allowAdding:true,
+                    allowUpdating:true,
+                    allowDeleting:true,
+                },
+                searchPanel:{visible:true},
+                onRowUpdating: function (e) {
+                    e.newData = Object.assign({}, e.oldData, e.newData);
+                },
+                dataSource: new DevExpress.data.CustomStore({
+                    key: "id",
+                    load: function (options) {
+                        return devextremeLoadCall("/Users/List/",options,false);
+                    },
+                    insert: function (values) {
+                        return devextremeAddCall("/Users/Add/",values)
+                    },
+                    update: function (key, values) {
+                        return devextremeUpdateCall(`/Users/Edit/${key}`,values)
+                    },
+                    remove: function (key) {
+                        return devextremeRemoveCall(`/Users/Delete/${key}`);
+                    }
+                }),
+                columns:[
+                {
+                    dataField:'firstName',
+                    caption:'نام',
+                    validationRules: [{type: 'required'}],
+                },
+                {
+                    dataField:'lastName',
+                    caption:'نام خانوادگی',
+                    validationRules: [{type: 'required'}],
+                },
+                {
+                    dataField:'userName',
+                    caption: "نام کاربری",
+                    validationRules: [
+                        {type: 'required'},
+                        {
+                            type: 'stringLength',
+                            min: 4,
+                            message: 'نام کاربری حداقل ۴ کاراکتر باید باشد',
+                        },
+                        {
+                            type: 'pattern',
+                            pattern: /^[a-zA-Z0-9]+$/,
+                            message: 'نام کاربری وارد شده باید ترکیبی از کلمات و اعداد انگلیسی باشد',
+                        }
+                    ],
+                },
+                {
+                    dataField: 'password',
+                    caption: "رمز عبور",
+                    visible: false,
+                    allowEditing: true,
+                    validationRules: [
+                        {
+                            type: 'custom',
+                            message: 'رمز عبور ضروری می باشد',
+                            validationCallback: function (e) {
+                                if (e.data.id !== null && e.data.id !== "" && e.data.id !== undefined) {
+                                    return true;
+                                }
+                                return !(e.data.password === null || e.data.password === "" || e.data.password === undefined);
+                            }
+                        },
+                        {
+                            type: 'custom',
+                            message: 'رمز عبور حداقل باید 6 کاراکتر باشد',
+                            validationCallback: function (e) {
+    
+                                if (e.data.password === null || e.data.password === "" || e.data.password === undefined) {
+                                    return true;
+                                }
+    
+                                if (e.data.password.length === 0) {
+                                    return true;
+                                }
+    
+                                return e.data.password.length > 5;
+                            },
+                        }
+                    ]
+                },
+                {                   
+                    dataField: 'isEnabled',
+                    caption: "وضعیت",
+                    dataType:'boolean',
+                },
+                {
+                    dataField:'persianModifiedDate',
+                    caption:'زمان آخرین تغییر',                    
+                    formItem:{
+                        visible:false,
+                    }
+                }]
+            });
+    });
+    </script>
+
+}

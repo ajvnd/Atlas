@@ -1,3 +1,4 @@
+using Atlas.Configurations;
 using Atlas.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +13,14 @@ builder.Services.AddDbContext<AtlasDbContext>((c) =>
     c.UseLazyLoadingProxies().UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 // Add Middlewares
 var app = builder.Build();
+
+app.UseDeveloperExceptionPage();
+
+ErrorHandlerMiddleware.Use(app);
 
 using var serviceScope = app.Services.CreateScope();
 using var dbContext = serviceScope.ServiceProvider.GetRequiredService<AtlasDbContext>();
