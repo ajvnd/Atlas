@@ -14,6 +14,7 @@ public class AtlasDbContext : DbContext
     public DbSet<Province> Provinces { get; set; }
     public DbSet<Domain> Domains { get; set; }
     public DbSet<ContractType> ContractTypes { get; set; }
+    public DbSet<Company> Companies { get; set; }
 }
 
 public class BaseEntity
@@ -53,7 +54,19 @@ public class ContractType : BaseEntity
     public string Title { get; set; }
 }
 
-public class Resume
+public class Company : BaseEntity
 {
-    public string Url { get; set; }
+    public string Title { get; set; }
+    public string Resume { get; set; }
+    public string Address { get; set; }
+
+    public bool IsEnabled { get; set; }
+    public bool IsKnowledgeBased { get; set; }
+    public bool HasSamta { get; set; }
+
+    public int DomainId { get; set; }
+    public int ProvinceId { get; set; }
+
+    public virtual Domain Domain { get; set; }
+    public virtual Province Province { get; set; }
 }

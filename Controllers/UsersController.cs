@@ -32,7 +32,17 @@ public class UsersController : Controller
     [HttpPost]
     public async Task<IActionResult> List()
     {
-        var users = await _users.AsNoTracking().ToListAsync();
+        var users = await _users.AsNoTracking().Select(c =>
+            new
+            {
+                c.Id,
+                c.FirstName,
+                c.LastName,
+                c.UserName,
+                c.IsEnabled,
+                c.ModifiedDate,
+                c.PersianModifiedDate
+            }).ToListAsync();
 
         return Ok(users);
     }
@@ -62,7 +72,8 @@ public class UsersController : Controller
     {
         await DuplicateUserNameAsync(viewModel);
 
-        CreateDefaultPassword(viewModel);
+        viewModel.Password ??= "12345";
+        viewModel.ModifiedDate = DateTime.Now;
 
         HashPassword(viewModel);
 
@@ -86,6 +97,12 @@ public class UsersController : Controller
             throw new UnAllowedToEditException();
 
         await DuplicateUserNameWithIdAsync(user);
+
+        user.IsEnabled = viewModel.IsEnabled;
+        user.FirstName = viewModel.FirstName;
+        user.LastName = viewModel.LastName;
+        user.UserName = viewModel.UserName;
+        user.ModifiedDate = DateTime.Now;
 
         if (!string.IsNullOrEmpty(viewModel.Password))
             HashPassword(user);
@@ -114,12 +131,6 @@ public class UsersController : Controller
         await _dbContext.SaveChangesAsync();
 
         return NoContent();
-    }
-
-
-    private void CreateDefaultPassword(User user)
-    {
-        user.Password ??= "12345";
     }
 
     private void HashPassword(User user)
