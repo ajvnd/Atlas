@@ -1,0 +1,148 @@
+
+@{
+    ViewBag.Title = "استان ها";
+    Layout = "_Layout.Admin";
+}
+
+
+<div class="company-grid"></div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(function () {
+        $(".company-grid").dxDataGrid(
+            {
+                columnAutoWidth: true,
+                height: "100%",
+                editing: {
+                    mode: 'popup',
+                    allowAdding:true,
+                    allowUpdating:true,
+                    allowDeleting:true,
+                    form:{
+                        labelLocation:'left',
+                        colCount: 1,
+                        items:[
+                            {
+                                itemType:'group',
+                                colCount:6,
+                                items:[
+                                    {
+                                        dataField: 'title',
+                                        colSpan: 3,
+                                    },
+                                    {
+                                        dataField:'isKnowledgeBased',
+                                        editorType:'dxSwitch',
+                                        colSpan:1,
+                                    },
+                                    {
+                                        dataField:'hasSamta',
+                                        editorType:'dxSwitch',
+                                        colSpan:1,
+                                    },
+                                    {
+                                        dataField:'isEnabled',
+                                        editorType:'dxSwitch',
+                                        colSpan:1,
+                                    }
+                                ],
+                            },
+                            {
+                                itemType:'group',
+                                colCount: 6,
+                                items:[{
+                                    dataField: 'provinceId',
+                                    colSpan:3,
+                                    
+                                },{
+                                    dataField: 'address',
+                                    colSpan: 3,
+                                }]
+                            },
+                        
+                        ]   
+                    }
+                },
+                searchPanel:{visible:true},
+                onRowUpdating: function (e) {
+                    e.newData = Object.assign({}, e.oldData, e.newData);
+                },
+                dataSource: new DevExpress.data.CustomStore({
+                    key: "id",
+                    load: function (options) {
+                        return devextremeLoadCall("/Companies/List/",options,false);
+                    },
+                    insert: function (values) {
+                        return devextremeAddCall("/Companies/Add/",values)
+                    },
+                    update: function (key, values) {
+                        return devextremeUpdateCall(`/Companies/Edit/${key}`,values)
+                    },
+                    remove: function (key) {
+                        return devextremeRemoveCall(`/Companies/Delete/${key}`);
+                    }
+                }),
+                columns:[{
+                    dataField:'title',
+                    caption:'عنوان',
+                    validationRules: [{type: 'required'}],
+                },
+                {
+                    dataField:'hasSamta',
+                    caption:'سمتا',     
+                    dataType:'boolean',     
+                },
+                {
+                    dataField:'isKnowledgeBased',
+                    caption:'دانش بنیان',     
+                    dataType:'boolean',               
+                },
+                {
+                    dataField:'isEnabled',
+                    caption:'فعال',     
+                    dataType:'boolean',               
+                },
+
+                {
+                    dataField:'domainId',
+                    caption:'زمینه',     
+                },
+                {
+                    dataField:'provinceId',
+                    caption:'استان',
+                formItem: {
+                    editorType: "dxSelectBox",
+                    editorOptions: {
+                        valueExpr: "id",
+                        displayExpr: "title",
+                        showClearButton: true,
+                        dataSource: new DevExpress.data.CustomStore({
+                            load: function (options) {
+                                    return devextremeLoadCall("Companies/List/", options,false);
+                                },
+                            byKey: function (key) {
+                                    return devextremeByKeyCall(`Companies/Get/${key}`);
+                                },
+                            }),
+                        }
+                    },     
+                },
+                {
+                    dataField:'address',
+                    caption:'آدرس',
+                    visible:false,     
+                },
+                {
+                    dataField:'persianModifiedDate',
+                    caption:'زمان آخرین تغییر',                    
+                    formItem:{
+                        visible:false,
+                    }
+                }]
+            });
+    });
+    </script>
+
+}

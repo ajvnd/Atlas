@@ -81,9 +81,9 @@ devextremeRemoveCall = function (url) {
     return deferred.promise();
 }
 
-devextremeByKeyCall = function (url, key) {
+devextremeByKeyCall = function (url) {
     const deferred = $.Deferred();
-    makeGetCall(url + key, (result) => {
+    makeGetCall(url, (result) => {
         deferred.resolve(result);
     }, () => {
         deferred.reject();

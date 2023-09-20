@@ -57,8 +57,8 @@ public class ContractType : BaseEntity
 public class Company : BaseEntity
 {
     public string Title { get; set; }
-    public string Resume { get; set; }
     public string Address { get; set; }
+    public string Resume { get; set; }
 
     public bool IsEnabled { get; set; }
     public bool IsKnowledgeBased { get; set; }

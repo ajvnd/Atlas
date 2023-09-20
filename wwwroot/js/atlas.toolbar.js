@@ -31,6 +31,9 @@ $(function () {
                                 },
                                 {
                                     text: 'شرکت ها',
+                                    onClick: () => {
+                                        document.location.href = "/Companies/Index"
+                                    }
                                 },
                                 {
                                     text: 'کاربران',

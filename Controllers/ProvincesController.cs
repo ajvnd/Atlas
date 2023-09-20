@@ -30,6 +30,14 @@ public class ProvincesController : Controller
         return Ok(results);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Get([FromRoute] int id)
+    {
+        var province = await _provinces.FindAsync(id);
+
+        return Ok(province);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] Province viewModel)
     {
@@ -57,7 +65,7 @@ public class ProvincesController : Controller
 
         province.PersianTitle = viewModel.PersianTitle;
         province.EnglishTitle = viewModel.EnglishTitle;
-        province.ModifiedDate=DateTime.Now;
+        province.ModifiedDate = DateTime.Now;
 
         _dbContext.Update(province);
         await _dbContext.SaveChangesAsync();
