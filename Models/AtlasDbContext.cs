@@ -64,8 +64,8 @@ public class Company : BaseEntity
     public bool IsKnowledgeBased { get; set; }
     public bool HasSamta { get; set; }
 
-    public int DomainId { get; set; }
-    public int ProvinceId { get; set; }
+    public int? DomainId { get; set; }
+    public int? ProvinceId { get; set; }
 
     public virtual Domain Domain { get; set; }
     public virtual Province Province { get; set; }

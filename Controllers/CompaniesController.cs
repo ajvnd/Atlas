@@ -24,7 +24,7 @@ public class CompaniesController : Controller
     [HttpPost]
     public async Task<IActionResult> List()
     {
-        var results = await _companies.AsNoTracking().ToListAsync();
+        var results = await _companies.ToListAsync();
 
         return Ok(results);
     }
@@ -32,9 +32,7 @@ public class CompaniesController : Controller
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] Company viewModel)
     {
-        var company = new Company();
-        
-        MapCompany(company, viewModel);
+        var company = MapCompany(viewModel, new Company());
 
         await _companies.AddAsync(company);
         await _dbContext.SaveChangesAsync();
@@ -51,10 +49,10 @@ public class CompaniesController : Controller
         if (company == null)
             return NotFound();
 
-        MapCompany(viewModel, company);
+        company = MapCompany(viewModel, company);
 
         _dbContext.Update(company);
-        
+
         await _dbContext.SaveChangesAsync();
         return NoContent();
     }
@@ -72,8 +70,8 @@ public class CompaniesController : Controller
 
         return NoContent();
     }
-    
-    private static void MapCompany(Company viewModel, Company company)
+
+    private static Company MapCompany(Company viewModel, Company company)
     {
         company.Title = viewModel.Title;
         company.Address = viewModel.Address;
@@ -83,5 +81,7 @@ public class CompaniesController : Controller
         company.IsEnabled = viewModel.IsEnabled;
         company.IsKnowledgeBased = viewModel.IsKnowledgeBased;
         company.ModifiedDate = DateTime.Now;
+
+        return company;
     }
 }

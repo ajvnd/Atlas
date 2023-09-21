@@ -29,6 +29,14 @@ public class DomainsController : Controller
 
         return Ok(results);
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> Get([FromRoute] int id)
+    {
+        var domain = await _domains.FindAsync(id);
+
+        return Ok(domain);
+    }
 
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] Domain viewModel)

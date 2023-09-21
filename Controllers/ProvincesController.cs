@@ -25,7 +25,7 @@ public class ProvincesController : Controller
     [HttpPost]
     public async Task<IActionResult> List()
     {
-        var results = await _provinces.AsNoTracking().ToListAsync();
+        var results = await _provinces.ToListAsync();
 
         return Ok(results);
     }

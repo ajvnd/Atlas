@@ -21,33 +21,12 @@
                     allowUpdating:true,
                     allowDeleting:true,
                     form:{
-                        labelLocation:'left',
                         colCount: 1,
                         items:[
                             {
                                 itemType:'group',
-                                colCount:6,
-                                items:[
-                                    {
-                                        dataField: 'title',
-                                        colSpan: 3,
-                                    },
-                                    {
-                                        dataField:'isKnowledgeBased',
-                                        editorType:'dxSwitch',
-                                        colSpan:1,
-                                    },
-                                    {
-                                        dataField:'hasSamta',
-                                        editorType:'dxSwitch',
-                                        colSpan:1,
-                                    },
-                                    {
-                                        dataField:'isEnabled',
-                                        editorType:'dxSwitch',
-                                        colSpan:1,
-                                    }
-                                ],
+                                colCount:2,
+                                items:['title','domainId']
                             },
                             {
                                 itemType:'group',
@@ -61,7 +40,20 @@
                                     colSpan: 3,
                                 }]
                             },
-                        
+                            {
+                                itemType:'group',
+                                colCount:6,
+                                items:[{
+                                    dataField: 'isKnowledgeBased',
+                                    editorType:'dxSwitch',
+                                },{
+                                    dataField: 'hasSamta',
+                                    editorType:'dxSwitch',
+                                },{
+                                    dataField: 'isEnabled',
+                                    editorType:'dxSwitch',
+                                }]
+                            }
                         ]   
                     }
                 },
@@ -90,6 +82,48 @@
                     validationRules: [{type: 'required'}],
                 },
                 {
+                    dataField:'domainId',
+                    caption:'حوزه همکاری',     
+                    calculateDisplayValue:'domain.title',
+                    formItem: {
+                        editorType: "dxSelectBox",
+                        editorOptions: {
+                            valueExpr: "id",
+                            displayExpr: "title",
+                            showClearButton: true,
+                            dataSource: new DevExpress.data.CustomStore({
+                                load: function (options) {
+                                    return devextremeLoadCall("/Domains/List/", options,false);
+                                },
+                                byKey: function (key) {
+                                    return devextremeByKeyCall(`/Domains/Get/${key}`);
+                                },
+                            }),
+                        }
+                    }, 
+                },
+                {
+                    dataField:'provinceId',
+                    caption:'استان',
+                    calculateDisplayValue:'province.persianTitle',
+                    formItem: {
+                        editorType: "dxSelectBox",
+                        editorOptions: {
+                            valueExpr: "id",
+                            displayExpr: "persianTitle",
+                            showClearButton: true,
+                            dataSource: new DevExpress.data.CustomStore({
+                                load: function (options) {
+                                    return devextremeLoadCall("/Provinces/List/", options,false);
+                                },
+                                byKey: function (key) {
+                                    return devextremeByKeyCall(`/Provinces/Get/${key}`);
+                                },
+                            }),
+                        }
+                    },     
+                },
+                {
                     dataField:'hasSamta',
                     caption:'سمتا',     
                     dataType:'boolean',     
@@ -103,31 +137,6 @@
                     dataField:'isEnabled',
                     caption:'فعال',     
                     dataType:'boolean',               
-                },
-
-                {
-                    dataField:'domainId',
-                    caption:'زمینه',     
-                },
-                {
-                    dataField:'provinceId',
-                    caption:'استان',
-                formItem: {
-                    editorType: "dxSelectBox",
-                    editorOptions: {
-                        valueExpr: "id",
-                        displayExpr: "title",
-                        showClearButton: true,
-                        dataSource: new DevExpress.data.CustomStore({
-                            load: function (options) {
-                                    return devextremeLoadCall("Companies/List/", options,false);
-                                },
-                            byKey: function (key) {
-                                    return devextremeByKeyCall(`Companies/Get/${key}`);
-                                },
-                            }),
-                        }
-                    },     
                 },
                 {
                     dataField:'address',

@@ -32,7 +32,7 @@ public class UsersController : Controller
     [HttpPost]
     public async Task<IActionResult> List()
     {
-        var users = await _users.AsNoTracking().Select(c =>
+        var users = await _users.Select(c =>
             new
             {
                 c.Id,

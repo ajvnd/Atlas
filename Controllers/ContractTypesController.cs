@@ -26,7 +26,7 @@ public class ContractTypesController : Controller
     [HttpPost]
     public async Task<IActionResult> List()
     {
-        var results = await _contractTypes.AsNoTracking().ToListAsync();
+        var results = await _contractTypes.ToListAsync();
 
         return Ok(results);
     }
