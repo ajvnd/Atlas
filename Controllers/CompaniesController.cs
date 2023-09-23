@@ -74,7 +74,7 @@ public class CompaniesController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Resume([FromRoute] int id, IFormFile resume)
+    public async Task<IActionResult> AddResume([FromRoute] int id, IFormFile resume)
     {
         var company = await _companies.FindAsync(id);
 
@@ -82,6 +82,22 @@ public class CompaniesController : Controller
             return NotFound();
 
         company.Resume = await Upload(resume, $"files/companies/{id}");
+
+        _dbContext.Update(company);
+
+        await _dbContext.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> DeleteResume([FromRoute] int id)
+    {
+        var company = await _companies.FindAsync(id);
+
+        if (company == null)
+            return NotFound();
+
+        company.Resume = "";
 
         _dbContext.Update(company);
 

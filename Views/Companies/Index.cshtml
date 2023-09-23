@@ -6,11 +6,14 @@
 
 
 <div class="company-grid"></div>
+<div class="company-resume-popup"></div>
 
 @section Scripts{
 
     <script type="text/javascript">
     $(function () {
+    
+        let companyGrid=    
         $(".company-grid").dxDataGrid(
             {
                 columnAutoWidth: true,
@@ -146,24 +149,6 @@
                     }
                 },
                 {
-                  dataField:'resume',
-                  caption:'رزومه',     
-                  cellTemplate:(e,cellInfo)=>{
-                      return $("<div/>").dxFileUploader({
-                           name:'resume',
-                           uploadMode:'instantly',
-                           multiple:false,
-                           maxFileSize:"512",
-                           width:400,
-                           onUploaded:function (e){
-                             DevExpress.ui.notify({message: "فایل با موفقیت بارگزاری شد."}, "success", 3000);
-                             e.component.option("readOnly",false);
-                           },
-                           uploadUrl:`/Companies/Resume/${cellInfo.data.id}`
-                      });
-                  }  
-                },
-                {
                     dataField:'address',
                     caption:'آدرس',
                     visible:false,     
@@ -182,17 +167,25 @@
                                     stylingMode:'text',
                                     items: [
                                         {
-                                            text: 'حذف',
+                                            text: 'افزودن',
                                             onClick: function () {
+                                                showResumeUploaderPopup(e.row.data.id);
+                                            }
+                                        },
+                                        {
+                                            text: 'حذف',
+                                            disabled:e.row.data.resume === "" || e.row.data.resume === null,
+                                            onClick: function () {
+                                                makeGetCall(`/Companies/DeleteResume/${e.row.data.id}`,()=>{
+                                                    companyGrid.refresh();
+                                                },null)
                                             }
                                         },
                                         {
                                             text: 'دریافت',
+                                            disabled:e.row.data.resume === "" || e.row.data.resume === null,
                                             onClick: function () {
-                                                if (e.row.data.resume === "" || e.row.data.resume === null )
-                                                    e.component.option("disabled",true)
-                                                else
-                                                    window.open(e.row.data.resume, "_blank");
+                                                window.open(e.row.data.resume, "_blank");
                                             }
                                         },
                                     ]
@@ -203,7 +196,32 @@
                         },"edit","delete"] 
                 }]
                 
-            });
+            }).dxDataGrid('instance');
+        
+            let resumeUploader=null;
+            function showResumeUploaderPopup(id){
+                if (resumeUploader === null || resumeUploader === undefined){
+                    resumeUploader=$(".company-resume-popup").dxPopup({
+                        showCloseButton:true,
+                        title:"بارگزاری رزومه",
+                        height:250,
+                        width:400,
+                        contentTemplate:()=>{
+                                return $("<div/>").dxFileUploader({
+                                    name:"resume",
+                                    dropZone:'.company-resume-popup',
+                                    multiple:false,
+                                    uploadUrl:`/Companies/AddResume/${id}`,
+                                    onUploaded(){
+                                        companyGrid.refresh();
+                                    }
+                                });
+                            }
+                        }).dxPopup('instance');
+                }    
+                resumeUploader.show();
+            }
+        
     });
     </script>
 
