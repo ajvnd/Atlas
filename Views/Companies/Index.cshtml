@@ -139,17 +139,70 @@
                     dataType:'boolean',               
                 },
                 {
-                    dataField:'address',
-                    caption:'آدرس',
-                    visible:false,     
-                },
-                {
                     dataField:'persianModifiedDate',
                     caption:'زمان آخرین تغییر',                    
                     formItem:{
                         visible:false,
                     }
+                },
+                {
+                  dataField:'resume',
+                  caption:'رزومه',     
+                  cellTemplate:(e,cellInfo)=>{
+                      return $("<div/>").dxFileUploader({
+                           name:'resume',
+                           uploadMode:'instantly',
+                           multiple:false,
+                           maxFileSize:"512",
+                           width:400,
+                           onUploaded:function (e){
+                             DevExpress.ui.notify({message: "فایل با موفقیت بارگزاری شد."}, "success", 3000);
+                             e.component.option("readOnly",false);
+                           },
+                           uploadUrl:`/Companies/Resume/${cellInfo.data.id}`
+                      });
+                  }  
+                },
+                {
+                    dataField:'address',
+                    caption:'آدرس',
+                    visible:false,     
+                },
+                {
+                    
+                    dataField: 'buttons',
+                    type: 'buttons',
+                    caption:'',
+                    buttons:[
+                        {
+                            template: function (c, e) {
+                                return $('<div/>').dxDropDownButton({
+                                    text: 'رزومه',
+                                    type: 'default',
+                                    stylingMode:'text',
+                                    items: [
+                                        {
+                                            text: 'حذف',
+                                            onClick: function () {
+                                            }
+                                        },
+                                        {
+                                            text: 'دریافت',
+                                            onClick: function () {
+                                                if (e.row.data.resume === "" || e.row.data.resume === null )
+                                                    e.component.option("disabled",true)
+                                                else
+                                                    window.open(e.row.data.resume, "_blank");
+                                            }
+                                        },
+                                    ]
+    
+                                })
+                            }
+
+                        },"edit","delete"] 
                 }]
+                
             });
     });
     </script>

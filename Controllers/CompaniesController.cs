@@ -7,11 +7,13 @@ namespace Atlas.Controllers;
 public class CompaniesController : Controller
 {
     private readonly AtlasDbContext _dbContext;
+    private readonly IWebHostEnvironment _hostEnvironment;
     private readonly DbSet<Company> _companies;
 
-    public CompaniesController(AtlasDbContext dbContext)
+    public CompaniesController(AtlasDbContext dbContext, IWebHostEnvironment hostEnvironment)
     {
         _dbContext = dbContext;
+        _hostEnvironment = hostEnvironment;
         _companies = _dbContext.Set<Company>();
     }
 
@@ -69,6 +71,37 @@ public class CompaniesController : Controller
         await _dbContext.SaveChangesAsync();
 
         return NoContent();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Resume([FromRoute] int id, IFormFile resume)
+    {
+        var company = await _companies.FindAsync(id);
+
+        if (company == null)
+            return NotFound();
+
+        company.Resume = await Upload(resume, $"files/companies/{id}");
+
+        _dbContext.Update(company);
+
+        await _dbContext.SaveChangesAsync();
+        return NoContent();
+    }
+
+    private async Task<string> Upload(IFormFile resume, string url)
+    {
+        var fileName = $"{Guid.NewGuid().ToString().Replace("-", "")}{Path.GetExtension(resume.FileName)}";
+
+        if (!Directory.Exists(Path.Combine(_hostEnvironment.WebRootPath, url)))
+            Directory.CreateDirectory(Path.Combine(_hostEnvironment.WebRootPath, url));
+
+        var fullPath = Path.Combine(_hostEnvironment.WebRootPath, $"{url}/{fileName}");
+
+        await using Stream fileStream = new FileStream(fullPath, FileMode.Create);
+        await resume.CopyToAsync(fileStream);
+
+        return $"/{url}/{fileName}";
     }
 
     private static Company MapCompany(Company viewModel, Company company)
