@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Atlas.Exceptions;
+using Atlas.Extensions;
 using Atlas.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +73,9 @@ public class UsersController : Controller
     {
         await DuplicateUserNameAsync(viewModel);
 
+        viewModel.FirstName = viewModel.FirstName?.PersianToEnglishDigit();
+        viewModel.LastName = viewModel.LastName?.PersianToEnglishDigit();
+        viewModel.UserName = viewModel.LastName?.PersianToEnglishDigit();
         viewModel.Password ??= "12345";
         viewModel.ModifiedDate = DateTime.Now;
 
@@ -99,9 +103,9 @@ public class UsersController : Controller
         await DuplicateUserNameWithIdAsync(user);
 
         user.IsEnabled = viewModel.IsEnabled;
-        user.FirstName = viewModel.FirstName;
-        user.LastName = viewModel.LastName;
-        user.UserName = viewModel.UserName;
+        user.FirstName = viewModel.FirstName?.PersianToEnglishDigit();
+        user.LastName = viewModel.LastName?.PersianToEnglishDigit();
+        user.UserName = viewModel.UserName?.PersianToEnglishDigit();
         user.ModifiedDate = DateTime.Now;
 
         if (!string.IsNullOrEmpty(viewModel.Password))

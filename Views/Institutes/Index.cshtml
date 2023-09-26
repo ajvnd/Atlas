@@ -1,0 +1,223 @@
+
+@{
+    ViewBag.Title = "موسسات";
+    Layout = "_Layout.Admin";
+}
+
+
+<div class="institute-grid"></div>
+<div class="institute-resume-popup"></div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(function () {
+    
+        let instituteGrid=    
+        $(".institute-grid").dxDataGrid(
+            {
+                columnAutoWidth: true,
+                height: "100%",
+                editing: {
+                    mode: 'popup',
+                    allowAdding:true,
+                    allowUpdating:true,
+                    allowDeleting:true,
+                    form:{
+                        colCount: 1,
+                        items:[
+                            {
+                                itemType:'group',
+                                colCount:2,
+                                items:['title','domainId']
+                            },
+                            {
+                                itemType:'group',
+                                colCount: 6,
+                                items:[{
+                                    dataField: 'provinceId',
+                                    colSpan:3,
+                                    
+                                },{
+                                    dataField: 'address',
+                                    colSpan: 3,
+                                }]
+                            },
+                            {
+                                itemType:'group',
+                                colCount:6,
+                                items:[{
+                                    dataField: 'isKnowledgeBased',
+                                    editorType:'dxSwitch',
+                                },{
+                                    dataField: 'hasSamta',
+                                    editorType:'dxSwitch',
+                                },{
+                                    dataField: 'isEnabled',
+                                    editorType:'dxSwitch',
+                                }]
+                            }
+                        ]   
+                    }
+                },
+                searchPanel:{visible:true},
+                onRowUpdating: function (e) {
+                    e.newData = Object.assign({}, e.oldData, e.newData);
+                },
+                dataSource: new DevExpress.data.CustomStore({
+                    key: "id",
+                    load: function (options) {
+                        return devextremeLoadCall("/Institutes/List/",options,false);
+                    },
+                    insert: function (values) {
+                        return devextremeAddCall("/Institutes/Add/",values)
+                    },
+                    update: function (key, values) {
+                        return devextremeUpdateCall(`/Institutes/Edit/${key}`,values)
+                    },
+                    remove: function (key) {
+                        return devextremeRemoveCall(`/Companies/Delete/${key}`);
+                    }
+                }),
+                columns:[{
+                    dataField:'title',
+                    caption:'عنوان',
+                    validationRules: [{type: 'required'}],
+                },
+                {
+                    dataField:'domainId',
+                    caption:'حوزه همکاری',     
+                    calculateDisplayValue:'domain.title',
+                    formItem: {
+                        editorType: "dxSelectBox",
+                        editorOptions: {
+                            valueExpr: "id",
+                            displayExpr: "title",
+                            showClearButton: true,
+                            dataSource: new DevExpress.data.CustomStore({
+                                load: function (options) {
+                                    return devextremeLoadCall("/Domains/List/", options,false);
+                                },
+                                byKey: function (key) {
+                                    return devextremeByKeyCall(`/Domains/Get/${key}`);
+                                },
+                            }),
+                        }
+                    }, 
+                },
+                {
+                    dataField:'provinceId',
+                    caption:'استان',
+                    calculateDisplayValue:'province.persianTitle',
+                    formItem: {
+                        editorType: "dxSelectBox",
+                        editorOptions: {
+                            valueExpr: "id",
+                            displayExpr: "persianTitle",
+                            showClearButton: true,
+                            dataSource: new DevExpress.data.CustomStore({
+                                load: function (options) {
+                                    return devextremeLoadCall("/Provinces/List/", options,false);
+                                },
+                                byKey: function (key) {
+                                    return devextremeByKeyCall(`/Provinces/Get/${key}`);
+                                },
+                            }),
+                        }
+                    },     
+                },
+                {
+                    dataField:'isKnowledgeBased',
+                    caption:'دانش بنیان',     
+                    dataType:'boolean',               
+                },
+                {
+                    dataField:'isEnabled',
+                    caption:'فعال',     
+                    dataType:'boolean',               
+                },
+                {
+                    dataField:'persianModifiedDate',
+                    caption:'زمان آخرین تغییر',                    
+                    formItem:{
+                        visible:false,
+                    }
+                },
+                {
+                    dataField:'address',
+                    caption:'آدرس',
+                    visible:false,     
+                },
+                {
+                    
+                    dataField: 'buttons',
+                    type: 'buttons',
+                    caption:'',
+                    buttons:[
+                        {
+                            template: function (c, e) {
+                                return $('<div/>').dxDropDownButton({
+                                    text: 'رزومه',
+                                    type: 'default',
+                                    stylingMode:'text',
+                                    items: [
+                                        {
+                                            text: 'افزودن',
+                                            onClick: function () {
+                                                showResumeUploaderPopup(e.row.data.id);
+                                            }
+                                        },
+                                        {
+                                            text: 'حذف',
+                                            disabled:e.row.data.resume === "" || e.row.data.resume === null,
+                                            onClick: function () {
+                                                makeGetCall(`/Institutes/DeleteResume/${e.row.data.id}`,()=>{
+                                                    instituteGrid.refresh();
+                                                },null)
+                                            }
+                                        },
+                                        {
+                                            text: 'دریافت',
+                                            disabled:e.row.data.resume === "" || e.row.data.resume === null,
+                                            onClick: function () {
+                                                window.open(e.row.data.resume, "_blank");
+                                            }
+                                        },
+                                    ]
+    
+                                })
+                            }
+
+                        },"edit","delete"] 
+                }]
+                
+            }).dxDataGrid('instance');
+        
+            let resumeUploader=null;
+            function showResumeUploaderPopup(id){
+                if (resumeUploader === null || resumeUploader === undefined){
+                    resumeUploader=$(".institute-resume-popup").dxPopup({
+                        showCloseButton:true,
+                        title:"بارگزاری رزومه",
+                        height:250,
+                        width:400,
+                        contentTemplate:()=>{
+                                return $("<div/>").dxFileUploader({
+                                    name:"resume",
+                                    dropZone:'.institute-resume-popup',
+                                    multiple:false,
+                                    uploadUrl:`/Institutes/AddResume/${id}`,
+                                    onUploaded(){
+                                        instituteGrid.refresh();
+                                    }
+                                });
+                            }
+                        }).dxPopup('instance');
+                }    
+                resumeUploader.show();
+            }
+        
+    });
+    </script>
+
+}

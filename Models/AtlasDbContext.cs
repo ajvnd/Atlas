@@ -16,12 +16,13 @@ public class AtlasDbContext : DbContext
     public DbSet<ContractType> ContractTypes { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Institute> Institutes { get; set; }
+    public DbSet<Products> Products { get; set; }
 }
 
 public class BaseEntity
 {
     public int Id { get; set; }
-    
+
     public DateTime ModifiedDate { get; set; }
 
     [NotMapped]
@@ -81,6 +82,19 @@ public class Institute : BaseEntity
 
     public bool IsEnabled { get; set; }
     public bool IsKnowledgeBased { get; set; }
+
+    public int? DomainId { get; set; }
+    public int? ProvinceId { get; set; }
+
+    public virtual Domain Domain { get; set; }
+    public virtual Province Province { get; set; }
+}
+
+public class Products : BaseEntity
+{
+    public string Title { get; set; }
+
+    public bool IsEnabled { get; set; }
 
     public int? DomainId { get; set; }
     public int? ProvinceId { get; set; }

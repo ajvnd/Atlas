@@ -27,7 +27,9 @@ $(function () {
                                 },
                                 {
                                     text: 'موسسات',
-
+                                    onClick: () => {
+                                        document.location.href = "/Institutes/Index"
+                                    }
                                 },
                                 {
                                     text: 'شرکت ها',
@@ -65,9 +67,6 @@ $(function () {
                                     ]
                                 }
                             ]
-                        },
-                        {
-                            text: 'راهنما'
                         },
                         {
                             text: 'درباره ما',

@@ -5,17 +5,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Controllers;
 
-public class CompaniesController : Controller
+public class InstitutesController : Controller
 {
     private readonly AtlasDbContext _dbContext;
     private readonly IWebHostEnvironment _hostEnvironment;
-    private readonly DbSet<Company> _companies;
+    private readonly DbSet<Institute> _institutes;
 
-    public CompaniesController(AtlasDbContext dbContext, IWebHostEnvironment hostEnvironment)
+    public InstitutesController(AtlasDbContext dbContext, IWebHostEnvironment hostEnvironment)
     {
         _dbContext = dbContext;
         _hostEnvironment = hostEnvironment;
-        _companies = _dbContext.Set<Company>();
+        _institutes = _dbContext.Set<Institute>();
     }
 
     [HttpGet]
@@ -27,17 +27,17 @@ public class CompaniesController : Controller
     [HttpPost]
     public async Task<IActionResult> List()
     {
-        var results = await _companies.ToListAsync();
+        var results = await _institutes.ToListAsync();
 
         return Ok(results);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] Company viewModel)
+    public async Task<IActionResult> Add([FromBody] Institute viewModel)
     {
-        var company = MapCompany(viewModel, new Company());
+        var institute = MapInstitute(viewModel, new Institute());
 
-        await _companies.AddAsync(company);
+        await _institutes.AddAsync(institute);
         await _dbContext.SaveChangesAsync();
 
         return NoContent();
@@ -45,16 +45,16 @@ public class CompaniesController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Edit([FromRoute] int id,
-        [FromBody] Company viewModel)
+        [FromBody] Institute viewModel)
     {
-        var company = await _companies.FindAsync(id);
+        var institute = await _institutes.FindAsync(id);
 
-        if (company == null)
+        if (institute == null)
             return NotFound();
 
-        company = MapCompany(viewModel, company);
+        institute = MapInstitute(viewModel, institute);
 
-        _dbContext.Update(company);
+        _dbContext.Update(institute);
 
         await _dbContext.SaveChangesAsync();
         return NoContent();
@@ -63,12 +63,12 @@ public class CompaniesController : Controller
     [HttpGet]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var company = await _companies.FindAsync(id);
+        var institute = await _institutes.FindAsync(id);
 
-        if (company == null)
+        if (institute == null)
             return NotFound();
 
-        _companies.Remove(company);
+        _institutes.Remove(institute);
         await _dbContext.SaveChangesAsync();
 
         return NoContent();
@@ -77,14 +77,14 @@ public class CompaniesController : Controller
     [HttpPost]
     public async Task<IActionResult> AddResume([FromRoute] int id, IFormFile resume)
     {
-        var company = await _companies.FindAsync(id);
+        var institute = await _institutes.FindAsync(id);
 
-        if (company == null)
+        if (institute == null)
             return NotFound();
 
-        company.Resume = await Upload(resume, $"files/companies/{id}");
+        institute.Resume = await Upload(resume, $"files/institutes/{id}");
 
-        _dbContext.Update(company);
+        _dbContext.Update(institute);
 
         await _dbContext.SaveChangesAsync();
         return NoContent();
@@ -93,14 +93,14 @@ public class CompaniesController : Controller
     [HttpGet]
     public async Task<IActionResult> DeleteResume([FromRoute] int id)
     {
-        var company = await _companies.FindAsync(id);
+        var institute = await _institutes.FindAsync(id);
 
-        if (company == null)
+        if (institute == null)
             return NotFound();
 
-        company.Resume = "";
+        institute.Resume = "";
 
-        _dbContext.Update(company);
+        _dbContext.Update(institute);
 
         await _dbContext.SaveChangesAsync();
         return NoContent();
@@ -121,13 +121,12 @@ public class CompaniesController : Controller
         return $"/{url}/{fileName}";
     }
 
-    private static Company MapCompany(Company viewModel, Company company)
+    private static Institute MapInstitute(Institute viewModel, Institute company)
     {
-        company.Title = viewModel.Title.PersianToEnglishDigit();
-        company.Address = viewModel.Address.PersianToEnglishDigit();
+        company.Title = viewModel.Title?.PersianToEnglishDigit();
+        company.Address = viewModel.Address?.PersianToEnglishDigit();
         company.DomainId = viewModel.DomainId;
         company.ProvinceId = viewModel.ProvinceId;
-        company.HasSamta = viewModel.HasSamta;
         company.IsEnabled = viewModel.IsEnabled;
         company.IsKnowledgeBased = viewModel.IsKnowledgeBased;
         company.ModifiedDate = DateTime.Now;

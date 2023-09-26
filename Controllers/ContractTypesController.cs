@@ -15,8 +15,8 @@ public class ContractTypesController : Controller
         _dbContext = dbContext;
         _contractTypes = _dbContext.Set<ContractType>();
     }
-    
-    
+
+
     [HttpGet]
     public IActionResult Index()
     {
@@ -34,11 +34,7 @@ public class ContractTypesController : Controller
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] ContractType viewModel)
     {
-        var contractType = new ContractType()
-        {
-            Title = viewModel.Title.PersianToEnglishDigit(),
-            ModifiedDate = DateTime.Now
-        };
+        var contractType = MapContractType(viewModel, new ContractType());
 
         await _contractTypes.AddAsync(contractType);
         await _dbContext.SaveChangesAsync();
@@ -55,8 +51,7 @@ public class ContractTypesController : Controller
         if (contractType == null)
             return NotFound();
 
-        contractType.Title = viewModel.Title.PersianToEnglishDigit();
-        contractType.ModifiedDate=DateTime.Now;
+        contractType = MapContractType(viewModel, contractType);
 
         _contractTypes.Update(contractType);
         await _dbContext.SaveChangesAsync();
@@ -75,5 +70,13 @@ public class ContractTypesController : Controller
         await _dbContext.SaveChangesAsync();
 
         return NoContent();
+    }
+    
+    private static ContractType MapContractType(ContractType viewModel, ContractType contractType)
+    {
+        contractType.Title = viewModel.Title.PersianToEnglishDigit();
+        contractType.ModifiedDate = DateTime.Now;
+
+        return contractType;
     }
 }

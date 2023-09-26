@@ -63,8 +63,8 @@ public class ProvincesController : Controller
         if (province == null)
             return NotFound();
 
-        province.PersianTitle = viewModel.PersianTitle;
-        province.EnglishTitle = viewModel.EnglishTitle;
+        province.PersianTitle = viewModel.PersianTitle?.PersianToEnglishDigit();
+        province.EnglishTitle = viewModel.EnglishTitle?.PersianToEnglishDigit();
         province.ModifiedDate = DateTime.Now;
 
         _dbContext.Update(province);
