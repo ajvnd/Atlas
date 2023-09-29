@@ -43,8 +43,7 @@ public class User : BaseEntity
 
 public class Province : BaseEntity
 {
-    public string PersianTitle { get; set; }
-    public string EnglishTitle { get; set; }
+    public string Title { get; set; }
 }
 
 public class Domain : BaseEntity

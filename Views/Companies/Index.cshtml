@@ -108,12 +108,12 @@
                 {
                     dataField:'provinceId',
                     caption:'استان',
-                    calculateDisplayValue:'province.persianTitle',
+                    calculateDisplayValue:'province.title',
                     formItem: {
                         editorType: "dxSelectBox",
                         editorOptions: {
                             valueExpr: "id",
-                            displayExpr: "persianTitle",
+                            displayExpr: "title",
                             showClearButton: true,
                             dataSource: new DevExpress.data.CustomStore({
                                 load: function (options) {

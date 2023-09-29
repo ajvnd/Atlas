@@ -123,8 +123,8 @@ public class CompaniesController : Controller
 
     private static Company MapCompany(Company viewModel, Company company)
     {
-        company.Title = viewModel.Title.PersianToEnglishDigit();
-        company.Address = viewModel.Address.PersianToEnglishDigit();
+        company.Title = viewModel.Title?.PersianToEnglishDigit();
+        company.Address = viewModel.Address?.PersianToEnglishDigit();
         company.DomainId = viewModel.DomainId;
         company.ProvinceId = viewModel.ProvinceId;
         company.HasSamta = viewModel.HasSamta;

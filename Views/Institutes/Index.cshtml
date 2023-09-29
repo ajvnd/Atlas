@@ -50,9 +50,6 @@
                                     dataField: 'isKnowledgeBased',
                                     editorType:'dxSwitch',
                                 },{
-                                    dataField: 'hasSamta',
-                                    editorType:'dxSwitch',
-                                },{
                                     dataField: 'isEnabled',
                                     editorType:'dxSwitch',
                                 }]
@@ -108,12 +105,12 @@
                 {
                     dataField:'provinceId',
                     caption:'استان',
-                    calculateDisplayValue:'province.persianTitle',
+                    calculateDisplayValue:'province.title',
                     formItem: {
                         editorType: "dxSelectBox",
                         editorOptions: {
                             valueExpr: "id",
-                            displayExpr: "persianTitle",
+                            displayExpr: "title",
                             showClearButton: true,
                             dataSource: new DevExpress.data.CustomStore({
                                 load: function (options) {

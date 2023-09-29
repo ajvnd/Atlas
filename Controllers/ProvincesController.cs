@@ -43,8 +43,7 @@ public class ProvincesController : Controller
     {
         var province = new Province()
         {
-            PersianTitle = viewModel.PersianTitle?.PersianToEnglishDigit(),
-            EnglishTitle = viewModel.EnglishTitle?.PersianToEnglishDigit(),
+            Title = viewModel.Title?.PersianToEnglishDigit(),
             ModifiedDate = DateTime.Now
         };
 
@@ -63,8 +62,7 @@ public class ProvincesController : Controller
         if (province == null)
             return NotFound();
 
-        province.PersianTitle = viewModel.PersianTitle?.PersianToEnglishDigit();
-        province.EnglishTitle = viewModel.EnglishTitle?.PersianToEnglishDigit();
+        province.Title = viewModel.Title?.PersianToEnglishDigit();
         province.ModifiedDate = DateTime.Now;
 
         _dbContext.Update(province);
