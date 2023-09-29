@@ -16,7 +16,7 @@ public class AtlasDbContext : DbContext
     public DbSet<ContractType> ContractTypes { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Institute> Institutes { get; set; }
-    public DbSet<Products> Products { get; set; }
+    public DbSet<Product> Products { get; set; }
 }
 
 public class BaseEntity
@@ -89,12 +89,11 @@ public class Institute : BaseEntity
     public virtual Province Province { get; set; }
 }
 
-public class Products : BaseEntity
+public class Product : BaseEntity
 {
     public string Title { get; set; }
-
+    public string Address { get; set; }
     public bool IsEnabled { get; set; }
-
     public int? DomainId { get; set; }
     public int? ProvinceId { get; set; }
 

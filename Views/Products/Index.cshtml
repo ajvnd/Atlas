@@ -1,0 +1,144 @@
+
+@{
+    ViewBag.Title = "موسسات";
+    Layout = "_Layout.Admin";
+}
+
+
+<div class="product-grid"></div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(function () {
+    
+         $(".product-grid").dxDataGrid(
+            {
+                columnAutoWidth: true,
+                height: "100%",
+                editing: {
+                    mode: 'popup',
+                    allowAdding:true,
+                    allowUpdating:true,
+                    allowDeleting:true,
+                    form:{
+                        colCount: 1,
+                        items:[
+                            {
+                                itemType:'group',
+                                colCount:2,
+                                items:['title','domainId']
+                            },
+                            {
+                                itemType:'group',
+                                colCount: 6,
+                                items:[{
+                                    dataField: 'provinceId',
+                                    colSpan:3,
+                                    
+                                },{
+                                    dataField: 'address',
+                                    colSpan: 3,
+                                }]
+                            },
+                            {
+                                itemType:'group',
+                                colCount:6,
+                                items:[{
+                                    dataField: 'isEnabled',
+                                    editorType:'dxSwitch',
+                                }]
+                            }
+                        ]   
+                    }
+                },
+                searchPanel:{visible:true},
+                onRowUpdating: function (e) {
+                    e.newData = Object.assign({}, e.oldData, e.newData);
+                },
+                dataSource: new DevExpress.data.CustomStore({
+                    key: "id",
+                    load: function (options) {
+                        return devextremeLoadCall("/Institutes/List/",options,false);
+                    },
+                    insert: function (values) {
+                        return devextremeAddCall("/Institutes/Add/",values)
+                    },
+                    update: function (key, values) {
+                        return devextremeUpdateCall(`/Institutes/Edit/${key}`,values)
+                    },
+                    remove: function (key) {
+                        return devextremeRemoveCall(`/Companies/Delete/${key}`);
+                    }
+                }),
+                columns:[{
+                    dataField:'title',
+                    caption:'عنوان',
+                    validationRules: [{type: 'required'}],
+                },
+                {
+                    dataField:'domainId',
+                    caption:'حوزه همکاری',     
+                    calculateDisplayValue:'domain.title',
+                    formItem: {
+                        editorType: "dxSelectBox",
+                        editorOptions: {
+                            valueExpr: "id",
+                            displayExpr: "title",
+                            showClearButton: true,
+                            dataSource: new DevExpress.data.CustomStore({
+                                load: function (options) {
+                                    return devextremeLoadCall("/Domains/List/", options,false);
+                                },
+                                byKey: function (key) {
+                                    return devextremeByKeyCall(`/Domains/Get/${key}`);
+                                },
+                            }),
+                        }
+                    }, 
+                },
+                {
+                    dataField:'provinceId',
+                    caption:'استان',
+                    calculateDisplayValue:'province.title',
+                    formItem: {
+                        editorType: "dxSelectBox",
+                        editorOptions: {
+                            valueExpr: "id",
+                            displayExpr: "title",
+                            showClearButton: true,
+                            dataSource: new DevExpress.data.CustomStore({
+                                load: function (options) {
+                                    return devextremeLoadCall("/Provinces/List/", options,false);
+                                },
+                                byKey: function (key) {
+                                    return devextremeByKeyCall(`/Provinces/Get/${key}`);
+                                },
+                            }),
+                        }
+                    },     
+                },
+                {
+                    dataField:'isEnabled',
+                    caption:'فعال',     
+                    dataType:'boolean',               
+                },
+                {
+                    dataField:'persianModifiedDate',
+                    caption:'زمان آخرین تغییر',                    
+                    formItem:{
+                        visible:false,
+                    }
+                },
+                {
+                    dataField:'address',
+                    caption:'آدرس',
+                    visible:false,     
+                }]
+                
+            }).dxDataGrid('instance');
+        
+    });
+    </script>
+
+}
