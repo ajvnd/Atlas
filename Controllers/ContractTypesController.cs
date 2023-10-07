@@ -31,6 +31,14 @@ public class ContractTypesController : Controller
         return Ok(results);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Get([FromRoute] int id)
+    {
+        var province = await _contractTypes.FindAsync(id);
+
+        return Ok(province);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] ContractType viewModel)
     {
@@ -71,7 +79,7 @@ public class ContractTypesController : Controller
 
         return NoContent();
     }
-    
+
     private static ContractType MapContractType(ContractType viewModel, ContractType contractType)
     {
         contractType.Title = viewModel.Title.PersianToEnglishDigit();

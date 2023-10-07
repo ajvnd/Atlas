@@ -19,7 +19,9 @@ $(function () {
                             items: [
                                 {
                                     text: 'محصولات',
-
+                                    onClick: () => {
+                                        document.location.href = "/Products/Index"
+                                    }
                                 },
                                 {
                                     text: 'محققین',

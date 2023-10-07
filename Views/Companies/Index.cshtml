@@ -28,19 +28,19 @@
                         items:[
                             {
                                 itemType:'group',
-                                colCount:2,
-                                items:['title','domainId']
+                                colCount:3,
+                                items:['title','domainId','contractTypeId']
                             },
                             {
                                 itemType:'group',
                                 colCount: 6,
                                 items:[{
                                     dataField: 'provinceId',
-                                    colSpan:3,
+                                    colSpan:2,
                                     
                                 },{
                                     dataField: 'address',
-                                    colSpan: 3,
+                                    colSpan: 4,
                                 }]
                             },
                             {
@@ -100,6 +100,27 @@
                                 },
                                 byKey: function (key) {
                                     return devextremeByKeyCall(`/Domains/Get/${key}`);
+                                },
+                            }),
+                        }
+                    }, 
+                },
+                {
+                    dataField:'contractTypeId',
+                    caption:'نوع قرار داد',     
+                    calculateDisplayValue:'contractType.title',
+                    formItem: {
+                        editorType: "dxSelectBox",
+                        editorOptions: {
+                            valueExpr: "id",
+                            displayExpr: "title",
+                            showClearButton: true,
+                            dataSource: new DevExpress.data.CustomStore({
+                                load: function (options) {
+                                    return devextremeLoadCall("/ContractTypes/List/", options,false);
+                                },
+                                byKey: function (key) {
+                                    return devextremeByKeyCall(`/ContractTypes/Get/${key}`);
                                 },
                             }),
                         }

@@ -127,6 +127,7 @@ public class CompaniesController : Controller
         company.Address = viewModel.Address?.PersianToEnglishDigit();
         company.DomainId = viewModel.DomainId;
         company.ProvinceId = viewModel.ProvinceId;
+        company.ContractTypeId = viewModel.ContractTypeId;
         company.HasSamta = viewModel.HasSamta;
         company.IsEnabled = viewModel.IsEnabled;
         company.IsKnowledgeBased = viewModel.IsKnowledgeBased;

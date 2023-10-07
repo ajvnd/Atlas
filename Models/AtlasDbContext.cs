@@ -69,6 +69,9 @@ public class Company : BaseEntity
     public int? DomainId { get; set; }
     public int? ProvinceId { get; set; }
 
+    public int? ContractTypeId { get; set; }
+
+    public virtual ContractType ContractType { get; set; }
     public virtual Domain Domain { get; set; }
     public virtual Province Province { get; set; }
 }

@@ -59,16 +59,16 @@
                 dataSource: new DevExpress.data.CustomStore({
                     key: "id",
                     load: function (options) {
-                        return devextremeLoadCall("/Institutes/List/",options,false);
+                        return devextremeLoadCall("/Products/List/",options,false);
                     },
                     insert: function (values) {
-                        return devextremeAddCall("/Institutes/Add/",values)
+                        return devextremeAddCall("/Products/Add/",values)
                     },
                     update: function (key, values) {
-                        return devextremeUpdateCall(`/Institutes/Edit/${key}`,values)
+                        return devextremeUpdateCall(`/Products/Edit/${key}`,values)
                     },
                     remove: function (key) {
-                        return devextremeRemoveCall(`/Companies/Delete/${key}`);
+                        return devextremeRemoveCall(`/Products/Delete/${key}`);
                     }
                 }),
                 columns:[{
