@@ -25,6 +25,9 @@ $(function () {
                                 },
                                 {
                                     text: 'محققین',
+                                    onClick: () => {
+                                        document.location.href = "/Researchers/Index"
+                                    }
 
                                 },
                                 {

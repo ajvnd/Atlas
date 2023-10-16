@@ -17,6 +17,8 @@ public class AtlasDbContext : DbContext
     public DbSet<Company> Companies { get; set; }
     public DbSet<Institute> Institutes { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Researcher> Researchers { get; set; }
+
 }
 
 public class BaseEntity
@@ -97,6 +99,21 @@ public class Product : BaseEntity
     public string Title { get; set; }
     public string Address { get; set; }
     public bool IsEnabled { get; set; }
+    public int? DomainId { get; set; }
+    public int? ProvinceId { get; set; }
+
+    public virtual Domain Domain { get; set; }
+    public virtual Province Province { get; set; }
+}
+
+public class Researcher : BaseEntity
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Resume { get; set; }
+    public string Address { get; set; }
+    public bool IsEnabled { get; set; }
+
     public int? DomainId { get; set; }
     public int? ProvinceId { get; set; }
 
