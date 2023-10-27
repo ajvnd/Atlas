@@ -57,6 +57,7 @@
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/iran.js"></script>
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/europe.js"></script>
 <script type="text/javascript" src="~/lib/devextreme/js/vectormap-data/usa.js"></script>
+<script type="text/javascript" src="~/js/atlas.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/atlas.toolbar.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/atlas.signin.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/atlas.map.marker.js" asp-append-version="true"></script>
@@ -68,30 +69,7 @@
     })
     $(function (){
         
-      let signInPopUp = $(".atlas-signin-popup").dxPopup({
-        showCloseButton:true,
-        width: '25%',
-        height: '25%',
-        title:'ورود',
-        contentTemplate:(contentElement)=>{
-            return $("<div/>").dxForm({
-                    items: [{
-                        label:{
-                            text:'نام کاربری'
-                        },
-                        editorType:'dxTextBox',
-                    },
-                    {
-                        label:{
-                            text:'رمز عبور'
-                        },
-                        editorType:'dxTextBox',
-                    },
-     
-                    ],
-            })
-        }
-      }).dxPopup('instance');
+
       
       $(".body-left-content").dxVectorMap(
           {
@@ -128,12 +106,12 @@
         keyExpr:'key',
         selectedItem:0,
         onItemClick:function (e){
-            let bodyLeftContent=$(".body-right-content").dxForm('instance');
+            let bodyRightContent=$(".body-right-content").dxForm('instance');
             switch (e.itemData.key){
-                case 0:bodyLeftContent.option('items',products);break;
-                case 1:bodyLeftContent.option('items',researchers);break;
-                case 2:bodyLeftContent.option('items',organizations);break;
-                case 3:bodyLeftContent.option('items',companies);break;
+                case 0:bodyRightContent.option('items',products);break;
+                case 1:bodyRightContent.option('items',researchers);break;
+                case 2:bodyRightContent.option('items',organizations);break;
+                case 3:bodyRightContent.option('items',companies);break;
             }
         },
         items:[

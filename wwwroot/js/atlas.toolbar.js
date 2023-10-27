@@ -1,5 +1,74 @@
 $(function () {
 
+    let signInPopUp = $(".atlas-signin-popup").dxPopup({
+        showCloseButton: true,
+        width: '30%',
+        height: '39%',
+        title: 'ورود',
+        toolbarItems: [
+            {
+                widget: 'dxButton',
+                toolbar: 'bottom',
+                location: 'after',
+                options: {
+                    text: 'انصراف',
+                    onClick: function () {
+                    }
+                },
+            },
+            {
+                widget: 'dxButton',
+                toolbar: 'bottom',
+                location: 'after',
+                options: {
+                    text: 'ورود',
+                    onClick: function (e) {
+                        e.component.option('disabled', true);
+
+                        makePostCall("/Account/SignIn/", {
+                            userName: localStorage.getItem('UserName'),
+                            passWord: localStorage.getItem('Password')
+                        }, (e) => {
+                            e.component.option('disabled', false);
+                            signInPopUp.hide();
+                        }, () => {
+                            e.component.option('disabled', false);
+                        })
+                    }
+                },
+            }
+        ],
+        contentTemplate: (contentElement) => {
+            return $("<div/>").dxForm(
+                {
+                    items: [{
+                        label: {
+                            text: 'نام کاربری'
+                        },
+                        editorType: 'dxTextBox',
+                        editorOptions: {
+                            onValueChanged: function (e) {
+                                localStorage.setItem("UserName", e.value);
+                            }
+                        }
+                    },
+                        {
+                            label: {
+                                text: 'رمز عبور'
+                            },
+                            editorType: 'dxTextBox',
+                            editorOptions: {
+                                onValueChanged: function (e) {
+                                    localStorage.setItem("Password", e.value);
+                                }
+                            }
+                        },
+
+                    ],
+                })
+        }
+    }).dxPopup('instance');
+
     $(".atlas-toolbar").dxToolbar({
         items: [{
             widget: 'dxMenu',

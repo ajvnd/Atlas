@@ -1,4 +1,6 @@
 ﻿using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using Atlas.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -24,18 +26,26 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SignIn([FromBody]User user, string returnUrl = null)
+    public async Task<IActionResult> SignIn([FromBody] User model, string returnUrl = null)
     {
-        if (_dbContext.Users.Any(c => c.UserName == user.UserName && c.Password == user.Password))
+        var hashPassword = CreatePassword(model.Password);
+        var user = _dbContext.Users.FirstOrDefault(c => c.UserName == model.UserName && c.Password == hashPassword);
+
+        if (user != null)
         {
-            var claimsIdentity = new ClaimsIdentity(null, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsIdentity = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                    new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
+                }, CookieAuthenticationDefaults.AuthenticationScheme
+            );
 
             await _authenticationService.SignInAsync(HttpContext,
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 new AuthenticationProperties()
             );
-            
+
             return string.IsNullOrEmpty(returnUrl)
                 ? RedirectToAction(nameof(HomeController.Index), "Home")
                 : RedirectToAction(returnUrl);
@@ -45,7 +55,7 @@ public class AccountController : Controller
         return View();
     }
 
-    
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SignOut()
@@ -55,4 +65,11 @@ public class AccountController : Controller
         return RedirectToAction(nameof(HomeController.Index), "Home");
     }
 
+    public string CreatePassword(string password)
+    {
+        using var sha256 = SHA256.Create();
+        var secretBytes = Encoding.UTF8.GetBytes(password);
+        var secretHash = sha256.ComputeHash(secretBytes);
+        return Convert.ToHexString(secretHash);
+    }
 }
