@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     Layout = null;
 }
 
@@ -7,8 +8,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
-    <link rel="stylesheet" href="~/lib/devextreme/css/dx.material.teal.light.css">
+    <title>سامانه جامع اطلس ایران</title>
+    <link rel="dx-theme" data-theme="material.teal.light"  href="~/lib/devextreme/css/dx.material.teal.light.css" data-active="false">
+    <link rel="dx-theme" data-theme="material.teal.dark"  href="~/lib/devextreme/css/dx.material.teal.dark.css" data-active="false">
     <link rel="stylesheet" href="/css/style.css" asp-append-version="true">
 </head>
 <body>
@@ -42,6 +44,8 @@
 
 
 
+<input id="FullName" type="hidden" value="@User.FindFirst(ClaimTypes.Name)?.Value" />
+
 <div class="atlas-signin-popup"></div>
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="~/lib/devextreme/js/dx.all.js"></script>
@@ -61,34 +65,8 @@
         editorStylingMode:"outlined",
     })
     DevExpress.localization.locale('fa-IR');
-    $(function (){
-      //ToDo: Sync this with the main Layout
-      let signInPopUp = $(".atlas-signin-popup").dxPopup({
-        showCloseButton:true,
-        width: '25%',
-        height: '25%',
-        title:'ورود',
-        contentTemplate:(contentElement)=>{
-            return $("<div/>").dxForm({
-                    items: [{
-                        label:{
-                            text:'نام کاربری'
-                        },
-                        editorType:'dxTextBox',
-                    },
-                    {
-                        label:{
-                            text:'رمز عبور'
-                        },
-                        editorType:'dxTextBox',
-                    },
-     
-                    ],
-            })
-        }
-      }).dxPopup('instance');
-      
-    });
+    DevExpress.ui.themes.current(window.localStorage.getItem("dx-theme") || "material.teal.light");
+
 </script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>

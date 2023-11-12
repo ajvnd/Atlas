@@ -13,6 +13,7 @@ $(function () {
                 options: {
                     text: 'انصراف',
                     onClick: function () {
+                        signInPopUp.hide();
                     }
                 },
             },
@@ -24,15 +25,22 @@ $(function () {
                     text: 'ورود',
                     onClick: function (e) {
                         e.component.option('disabled', true);
-
                         makePostCall("/Account/SignIn/", {
                             userName: localStorage.getItem('UserName'),
                             passWord: localStorage.getItem('Password')
-                        }, (e) => {
-                            e.component.option('disabled', false);
-                            signInPopUp.hide();
                         }, () => {
                             e.component.option('disabled', false);
+                            signInPopUp.hide();
+                            document.location.reload();
+                        }, (r) => {
+                            if (r.status === 200) {
+                                e.component.option('disabled', false);
+                                signInPopUp.hide();
+                                document.location.reload();
+                            } else {
+                                e.component.option('disabled', false);
+                                DevExpress.ui.notify({message: "رمز عبور نادرست می باشد"}, "error", 1000);
+                            }
                         })
                     }
                 },
@@ -58,6 +66,7 @@ $(function () {
                             },
                             editorType: 'dxTextBox',
                             editorOptions: {
+                                mode: "password",
                                 onValueChanged: function (e) {
                                     localStorage.setItem("Password", e.value);
                                 }
@@ -155,9 +164,17 @@ $(function () {
                 location: 'before',
                 options: {
                     icon: 'login',
-                    text: 'ورود',
+                    text: $("#FullName").val() !== "" ? $("#FullName").val() : "ورود",
                     onClick: () => {
-                        signInPopUp.show();
+                        if (!$("#FullName").val())
+                            signInPopUp.show();
+                        else {
+                            makeGetCall("/Account/SignOut/", () => {
+                                document.location.reload();
+                            }, () => {
+                                document.location.reload();
+                            })
+                        }
                     }
                 }
             },
@@ -165,7 +182,19 @@ $(function () {
                 widget: 'dxSwitch',
                 location: "after",
                 options: {
-                    value: false,
+                    elementAttr: {
+                        style: "background-color:white",
+                    },
+                    value: localStorage.getItem("dx-theme") !== "material.teal.light",
+                    onValueChanged: function (e) {
+                        if (e.value === false) {
+                            localStorage.setItem("dx-theme", "material.teal.light");
+                            location.reload();
+                        } else {
+                            localStorage.setItem("dx-theme", "material.teal.dark");
+                            location.reload();
+                        }
+                    }
                 }
             },
         ]

@@ -1,5 +1,6 @@
 using Atlas.Configurations;
 using Atlas.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,14 @@ builder.Services.AddDbContext<AtlasDbContext>((c) =>
     var connectionString = builder.Configuration.GetConnectionString("default");
     c.UseLazyLoadingProxies().UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.SlidingExpiration = true;
+        options.ExpireTimeSpan = TimeSpan.FromDays(3);
+        options.LoginPath = "/Account/SignIn";
+    });
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

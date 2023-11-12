@@ -26,7 +26,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SignIn([FromBody] User model, string returnUrl = null)
+    public async Task<IActionResult> SignIn([FromBody] User model)
     {
         var hashPassword = CreatePassword(model.Password);
         var user = _dbContext.Users.FirstOrDefault(c => c.UserName == model.UserName && c.Password == hashPassword);
@@ -46,9 +46,7 @@ public class AccountController : Controller
                 new AuthenticationProperties()
             );
 
-            return string.IsNullOrEmpty(returnUrl)
-                ? RedirectToAction(nameof(HomeController.Index), "Home")
-                : RedirectToAction(returnUrl);
+            return Ok();
         }
 
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -56,13 +54,12 @@ public class AccountController : Controller
     }
 
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> SignOut()
+    [HttpGet]
+    public new async Task<IActionResult> SignOut()
     {
         await _authenticationService.SignOutAsync(HttpContext, CookieAuthenticationDefaults.AuthenticationScheme,
             new AuthenticationProperties());
-        return RedirectToAction(nameof(HomeController.Index), "Home");
+        return Ok();
     }
 
     public string CreatePassword(string password)
