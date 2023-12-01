@@ -38,13 +38,7 @@ using var dbContext = serviceScope.ServiceProvider.GetRequiredService<AtlasDbCon
 dbContext.Database.EnsureDeleted();
 dbContext.Database.EnsureCreated();
 
-dbContext.Users.Add(new User()
-{
-    UserName = "Admin",
-    FirstName = "مدیر",
-    LastName = "سیستم",
-    Password = AccountController.CreatePassword("admin")
-});
+dbContext.Seed();
 dbContext.SaveChanges();
 
 app.UseStaticFiles();

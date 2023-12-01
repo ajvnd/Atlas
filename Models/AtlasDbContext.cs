@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using Atlas.Controllers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Models;
@@ -19,6 +20,34 @@ public class AtlasDbContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<Researcher> Researchers { get; set; }
 
+    public void Seed()
+    {
+        Users.Add(new User()
+        {
+            UserName = "Admin",
+            FirstName = "مدیر",
+            LastName = "سیستم",
+            Password = AccountController.CreatePassword("admin")
+        });
+
+        Provinces.Add(new()
+        {
+            Title = "تهران",
+            ModifiedDate = DateTime.Now
+        });
+
+        Domains.Add(new()
+        {
+            Title = "هوش مصنوعی",
+            ModifiedDate = DateTime.Now
+        });
+
+        ContractTypes.Add(new ContractType()
+        {
+            Title = "نوع ۱",
+            ModifiedDate = DateTime.Now
+        });
+    }
 }
 
 public class BaseEntity
