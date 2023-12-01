@@ -65,77 +65,15 @@
 <script type="text/javascript" src="~/js/atlas.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/atlas.toolbar.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/atlas.signin.js" asp-append-version="true"></script>
-<script type="text/javascript" src="~/js/atlas.map.marker.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/atlas.tabs.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/atlas.map.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/atlas.map.marker.js" asp-append-version="true"></script>
 <script type="text/javascript">
     DevExpress.config({
         rtlEnabled:true,
         editorStylingMode:"outlined",
     })
     DevExpress.ui.themes.current(window.localStorage.getItem("dx-theme") || "material.teal.light");
-    $(function (){
-      
-      $(".body-left-content").dxVectorMap(
-          {
-              zoomFactor:2.5,
-              width:"100%",
-              height:"100%",
-              bounds: [43.13321914472885, 50.83717618250027, 61.96, 8.33],
-              tooltip: {
-                enabled: true,
-                customizeTooltip(arg) {
-                    if (arg.layer.type === 'marker') {
-                      return { text: arg.attribute('name') };
-                    }
-                    return null;
-                  },
-                },
-            layers:[{
-                name: 'areas',
-                dataSource: DevExpress.viz.map.sources.eurasia
-                
-            },
-            {
-                dataSource:markersArray,
-            }],
-            controlBar:{enabled:false},
-          }
-      );
-      
-      $(".body-right-content").dxForm({
-          items:products
-      });
-      
-      $(".atlas-tab-content").dxTabs({
-        keyExpr:'key',
-        selectedItem:0,
-        onItemClick:function (e){
-            let bodyRightContent=$(".body-right-content").dxForm('instance');
-            switch (e.itemData.key){
-                case 0:bodyRightContent.option('items',products);break;
-                case 1:bodyRightContent.option('items',researchers);break;
-                case 2:bodyRightContent.option('items',organizations);break;
-                case 3:bodyRightContent.option('items',companies);break;
-            }
-        },
-        items:[
-            {
-            key:0,
-            template:'<div><i class="dx-icon dx-icon-product atlas-tab-content-icon">محصولات</i></div> ',
-            
-        },{
-            key:1,
-            template:  '<div><i class="dx-icon dx-icon-group atlas-tab-content-icon">محققین</i></div>'
-        },{
-            key:2,
-            template: '<div><i class="dx-icon dx-icon-home atlas-tab-content-icon">موسسات</i></div>'
-        },{
-            key:3,
-            template: '<div><i class="dx-icon dx-icon-globe atlas-tab-content-icon">شرکت ها</i></div>'
-        }]
-      });
-      
-    });
 </script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
