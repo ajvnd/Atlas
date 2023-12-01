@@ -62,7 +62,7 @@ public class AccountController : Controller
         return Ok();
     }
 
-    public string CreatePassword(string password)
+    public static string CreatePassword(string password)
     {
         using var sha256 = SHA256.Create();
         var secretBytes = Encoding.UTF8.GetBytes(password);
