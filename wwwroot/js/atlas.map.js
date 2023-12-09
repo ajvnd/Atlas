@@ -9,28 +9,33 @@ $(function () {
             }
         }
     });
+
+    localStorage.setItem('isMap', 'map');
+
     $(".map-switch").dxSpeedDialAction({
         hint: "Edit",
         icon: "map",
-
         onClick: function (e) {
             let icon = e.component.option('icon')
             let leftContent = $(".body-left-content");
 
-            if (icon ==='map'){
-                leftContent.dxVectorMap('instance').dispose();   
-            }else{
+            if (icon === 'map') {
+                leftContent.dxVectorMap('instance').dispose();
+            } else {
                 leftContent.dxDataGrid('instance').dispose();
             }
-            
+
             let iconRes = icon === 'map' ? 'smalliconslayout' : 'map';
             e.component.option('icon', iconRes)
+            localStorage.setItem("isMap", iconRes);
 
             if (iconRes === 'map') {
                 leftContent.dxVectorMap(vectorMap);
             } else {
                 leftContent.dxDataGrid(grid)
             }
+            
+            setResult();
         }
     });
 
@@ -59,7 +64,43 @@ $(function () {
         controlBar: {enabled: false},
     };
 
-    let grid = {}
+    let grid = {
+        keyExpr: 'id',
+        columns: [
+            {
+                name: 'id',
+                dataField: 'id',
+                visible: false,
+            },
+            {
+                name: 'title',
+                dataField: 'title',
+                caption: 'عنوان'
+            },
+            {
+                name: 'domainId',
+                dataField: 'domainId',
+                caption: 'زمینه',
+                calculateDisplayValue: 'domain.title',
+            },
+            {
+                name: 'provinceId',
+                dataField: 'provinceId',
+                caption: 'زمینه',
+                calculateDisplayValue: 'province.title',
+            },
+            {
+                name: 'isEnabled',
+                dataField: 'isEnabled',
+                caption: 'فعال',
+            },
+            {
+                name: 'modifiedDate',
+                dataField: 'modifiedDate',
+                caption: 'تاریخ آخرین تغییر',
+            },
+        ]
+    }
 
     $(".body-left-content").dxVectorMap(vectorMap);
 
