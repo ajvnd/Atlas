@@ -30,22 +30,66 @@ public class AtlasDbContext : DbContext
             Password = AccountController.CreatePassword("admin")
         });
 
-        Provinces.Add(new()
+        var province1 = new Province()
         {
             Title = "تهران",
             ModifiedDate = DateTime.Now
-        });
+        };
+        var province2 = new Province()
+        {
+            Title = "قم",
+            ModifiedDate = DateTime.Now
+        };
 
-        Domains.Add(new()
+        Provinces.Add(province1);
+        Provinces.Add(province2);
+
+        var domain1 = new Domain()
         {
             Title = "هوش مصنوعی",
             ModifiedDate = DateTime.Now
-        });
+        };
+
+        var domain2 = new Domain()
+        {
+            Title = "سخت افزار",
+            ModifiedDate = DateTime.Now
+        };
+
+        Domains.Add(domain1);
+        Domains.Add(domain2);
+
 
         ContractTypes.Add(new ContractType()
         {
             Title = "نوع ۱",
             ModifiedDate = DateTime.Now
+        });
+
+        ContractTypes.Add(new ContractType()
+        {
+            Title = "نوع ۲",
+            ModifiedDate = DateTime.Now
+        });
+
+        Products.AddRange(new[]
+        {
+            new Product()
+            {
+                Province = province1,
+                Domain = domain1,
+                IsEnabled = true,
+                Title = "محصول ۱",
+                ModifiedDate = DateTime.Now,
+            },
+            new Product()
+            {
+                Province = province2,
+                Domain = domain2,
+                IsEnabled = true,
+                Title = "محصول۲",
+                ModifiedDate = DateTime.Now,
+            }
         });
     }
 }
