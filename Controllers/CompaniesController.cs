@@ -121,6 +121,24 @@ public class CompaniesController : Controller
         return $"/{url}/{fileName}";
     }
 
+    private async Task<List<Company>> ToListAsync(CompanyListViewModel viewModel)
+    {
+        var companies = _companies.Where(c => c.IsEnabled == viewModel.IsEnabled);
+
+        companies = companies.Where(c => c.IsKnowledgeBased == viewModel.IsKnowledgeBased);
+
+        companies = companies.Where(c => c.IsKnowledgeBased == viewModel.HasSamta);
+
+        if (viewModel.ProvinceIds != null)
+            companies =
+                companies.Where(c => c.ProvinceId != null && viewModel.ProvinceIds.Contains((int)c.ProvinceId));
+
+        if (viewModel.DomainIds != null)
+            companies = companies.Where(c => c.DomainId != null && viewModel.DomainIds.Contains((int)c.DomainId));
+
+        return await _companies.ToListAsync();
+    }
+
     private static Company MapCompany(Company viewModel, Company company)
     {
         company.Title = viewModel.Title?.PersianToEnglishDigit();
@@ -135,4 +153,10 @@ public class CompaniesController : Controller
 
         return company;
     }
+}
+
+public class CompanyListViewModel : BaseListViewModel
+{
+    public bool IsKnowledgeBased { get; set; }
+    public bool HasSamta { get; set; }
 }

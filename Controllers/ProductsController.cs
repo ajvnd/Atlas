@@ -23,9 +23,9 @@ public class ProductsController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> List()
+    public async Task<IActionResult> List([FromBody] BaseListViewModel viewModel)
     {
-        var results = await _products.ToListAsync();
+        var results = viewModel == null ? await _products.ToListAsync() : await ToListAsync(viewModel);
 
         return Ok(results);
     }
@@ -70,6 +70,19 @@ public class ProductsController : Controller
         await _dbContext.SaveChangesAsync();
 
         return NoContent();
+    }
+
+    private async Task<List<Product>> ToListAsync(BaseListViewModel viewModel)
+    {
+        var products = _products.Where(c => c.IsEnabled == viewModel.IsEnabled);
+
+        if (viewModel.ProvinceIds != null)
+            products = products.Where(c => c.ProvinceId != null && viewModel.ProvinceIds.Contains((int)c.ProvinceId));
+
+        if (viewModel.DomainIds != null)
+            products = products.Where(c => c.DomainId != null && viewModel.DomainIds.Contains((int)c.DomainId));
+
+        return await products.ToListAsync();
     }
 
     private static Product MapInstitute(Product viewModel, Product product)

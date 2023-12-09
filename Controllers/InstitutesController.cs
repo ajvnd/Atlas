@@ -25,9 +25,9 @@ public class InstitutesController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> List()
+    public async Task<IActionResult> List([FromBody] InstituteListViewModel viewModel)
     {
-        var results = await _institutes.ToListAsync();
+        var results = viewModel == null ? await _institutes.ToListAsync() : await ToListAsync(viewModel);
 
         return Ok(results);
     }
@@ -121,6 +121,22 @@ public class InstitutesController : Controller
         return $"/{url}/{fileName}";
     }
 
+    private async Task<List<Institute>> ToListAsync(InstituteListViewModel viewModel)
+    {
+        var institutes = _institutes.Where(c => c.IsEnabled == viewModel.IsEnabled);
+
+        institutes = institutes.Where(c => c.IsKnowledgeBased == viewModel.IsKnowledgeBased);
+
+        if (viewModel.ProvinceIds != null)
+            institutes =
+                institutes.Where(c => c.ProvinceId != null && viewModel.ProvinceIds.Contains((int)c.ProvinceId));
+
+        if (viewModel.DomainIds != null)
+            institutes = institutes.Where(c => c.DomainId != null && viewModel.DomainIds.Contains((int)c.DomainId));
+
+        return await _institutes.ToListAsync();
+    }
+
     private static Institute MapInstitute(Institute viewModel, Institute company)
     {
         company.Title = viewModel.Title?.PersianToEnglishDigit();
@@ -133,4 +149,9 @@ public class InstitutesController : Controller
 
         return company;
     }
+}
+
+public class InstituteListViewModel : BaseListViewModel
+{
+    public bool IsKnowledgeBased { get; set; } = false;
 }

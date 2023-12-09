@@ -5,9 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Controllers;
 
-public class ResearchersController:Controller
+public class ResearchersController : Controller
 {
-    
     private readonly AtlasDbContext _dbContext;
     private readonly IWebHostEnvironment _hostEnvironment;
     private readonly DbSet<Researcher> _researchers;
@@ -26,9 +25,9 @@ public class ResearchersController:Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> List()
+    public async Task<IActionResult> List([FromBody] BaseListViewModel viewModel)
     {
-        var results = await _researchers.ToListAsync();
+        var results = viewModel == null ? await _researchers.ToListAsync() : await ToListAsync(viewModel);
 
         return Ok(results);
     }
@@ -74,7 +73,7 @@ public class ResearchersController:Controller
 
         return NoContent();
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> AddResume([FromRoute] int id, IFormFile resume)
     {
@@ -121,11 +120,25 @@ public class ResearchersController:Controller
 
         return $"/{url}/{fileName}";
     }
-    
+
+    private async Task<List<Researcher>> ToListAsync(BaseListViewModel viewModel)
+    {
+        var researchers = _researchers.Where(c => c.IsEnabled == viewModel.IsEnabled);
+
+        if (viewModel.ProvinceIds != null)
+            researchers =
+                researchers.Where(c => c.ProvinceId != null && viewModel.ProvinceIds.Contains((int)c.ProvinceId));
+
+        if (viewModel.DomainIds != null)
+            researchers = researchers.Where(c => c.DomainId != null && viewModel.DomainIds.Contains((int)c.DomainId));
+
+        return await researchers.ToListAsync();
+    }
+
     private static Researcher MapResearcher(Researcher viewModel, Researcher researcher)
     {
-        researcher.FirstName= viewModel.FirstName?.PersianToEnglishDigit();
-        researcher.LastName= viewModel.LastName?.PersianToEnglishDigit();
+        researcher.FirstName = viewModel.FirstName?.PersianToEnglishDigit();
+        researcher.LastName = viewModel.LastName?.PersianToEnglishDigit();
         researcher.Address = viewModel.Address?.PersianToEnglishDigit();
         researcher.DomainId = viewModel.DomainId;
         researcher.ProvinceId = viewModel.ProvinceId;
