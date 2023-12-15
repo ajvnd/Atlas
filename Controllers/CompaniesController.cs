@@ -25,9 +25,9 @@ public class CompaniesController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> List()
+    public async Task<IActionResult> List(CompanyListViewModel viewModel)
     {
-        var results = await _companies.ToListAsync();
+        var results = viewModel == null ? await _companies.ToListAsync() : await ToListAsync(viewModel);
 
         return Ok(results);
     }
@@ -129,6 +129,10 @@ public class CompaniesController : Controller
 
         companies = companies.Where(c => c.IsKnowledgeBased == viewModel.HasSamta);
 
+        if (!string.IsNullOrEmpty(viewModel.Text?.PersianToEnglishDigit()))
+            companies = companies.Where(c => c.Title.Contains(viewModel.Text));
+
+
         if (viewModel.ProvinceIds != null)
             companies =
                 companies.Where(c => c.ProvinceId != null && viewModel.ProvinceIds.Contains((int)c.ProvinceId));
@@ -136,7 +140,11 @@ public class CompaniesController : Controller
         if (viewModel.DomainIds != null)
             companies = companies.Where(c => c.DomainId != null && viewModel.DomainIds.Contains((int)c.DomainId));
 
-        return await _companies.ToListAsync();
+        if (viewModel.ContractTypeIds != null)
+            companies = companies.Where(c =>
+                c.ContractTypeId != null && viewModel.ContractTypeIds.Contains((int)c.ContractTypeId));
+
+        return await companies.ToListAsync();
     }
 
     private static Company MapCompany(Company viewModel, Company company)
@@ -157,6 +165,7 @@ public class CompaniesController : Controller
 
 public class CompanyListViewModel : BaseListViewModel
 {
+    public int[] ContractTypeIds { get; set; }
     public bool IsKnowledgeBased { get; set; }
     public bool HasSamta { get; set; }
 }
