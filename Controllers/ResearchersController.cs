@@ -125,6 +125,9 @@ public class ResearchersController : Controller
     {
         var researchers = _researchers.Where(c => c.IsEnabled == viewModel.IsEnabled);
 
+        if (!string.IsNullOrEmpty(viewModel.Text?.PersianToEnglishDigit()))
+            researchers = researchers.Where(c => c.FirstName.Contains(viewModel.Text.PersianToEnglishDigit()) || c.LastName.Contains(viewModel.Text.PersianToEnglishDigit()));
+        
         if (viewModel.ProvinceIds != null)
             researchers =
                 researchers.Where(c => c.ProvinceId != null && viewModel.ProvinceIds.Contains((int)c.ProvinceId));

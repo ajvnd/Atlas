@@ -76,6 +76,9 @@ public class ProductsController : Controller
     {
         var products = _products.Where(c => c.IsEnabled == viewModel.IsEnabled);
 
+        if (!string.IsNullOrEmpty(viewModel.Text?.PersianToEnglishDigit()))
+            products = products.Where(c => c.Title.Contains(viewModel.Text.PersianToEnglishDigit()));
+        
         if (viewModel.ProvinceIds != null)
             products = products.Where(c => c.ProvinceId != null && viewModel.ProvinceIds.Contains((int)c.ProvinceId));
 

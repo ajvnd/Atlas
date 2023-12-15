@@ -126,6 +126,9 @@ public class InstitutesController : Controller
         var institutes = _institutes.Where(c => c.IsEnabled == viewModel.IsEnabled);
 
         institutes = institutes.Where(c => c.IsKnowledgeBased == viewModel.IsKnowledgeBased);
+        
+        if (!string.IsNullOrEmpty(viewModel.Text?.PersianToEnglishDigit()))
+            institutes = institutes.Where(c => c.Title.Contains(viewModel.Text.PersianToEnglishDigit()));
 
         if (viewModel.ProvinceIds != null)
             institutes =
@@ -134,7 +137,7 @@ public class InstitutesController : Controller
         if (viewModel.DomainIds != null)
             institutes = institutes.Where(c => c.DomainId != null && viewModel.DomainIds.Contains((int)c.DomainId));
 
-        return await _institutes.ToListAsync();
+        return await institutes.ToListAsync();
     }
 
     private static Institute MapInstitute(Institute viewModel, Institute company)
