@@ -75,7 +75,13 @@ $(function () {
             {
                 name: 'title',
                 dataField: 'title',
-                caption: 'عنوان'
+                caption: 'عنوان',
+                calculateDisplayValue: (e) => {
+                    if (e.hasOwnProperty("firstName") || e.hasOwnProperty("lastName"))
+                        return `${e.firstName} ${e.lastName}`;
+                    else
+                        return e.title;
+                },
             },
             {
                 name: 'domainId',
@@ -95,13 +101,84 @@ $(function () {
                 caption: 'فعال',
             },
             {
-                name: 'modifiedDate',
-                dataField: 'modifiedDate',
+                name: 'persianModifiedDate',
+                dataField: 'persianModifiedDate',
                 caption: 'تاریخ آخرین تغییر',
             },
+            {
+                type: 'buttons',
+                buttons: [{
+                    icon: 'arrowleft',
+                    onClick(e) {
+                        let atalsItemPopUp = $(".atals-item-popup").dxPopup('instance');
+                        atalsItemPopUp.option('contentTemplate', () => {
+                            let items = []
+                            if (e.row.data.hasOwnProperty("title")) {
+                                items.push({
+                                    dataField: 'title',
+                                    label: {
+                                        text: 'عنوان'
+                                    }
+                                })
+                            }
+                            if (e.row.data.hasOwnProperty("firstName")) {
+                                items.push({
+                                    dataField: 'firstName',
+                                    label: {
+                                        text: 'نام'
+                                    }
+                                })
+                            }
+
+                            if (e.row.data.hasOwnProperty("lastName")) {
+                                items.push({
+                                    dataField: 'lastName',
+                                    label: {
+                                        text: 'نام خانوادگی'
+                                    }
+                                })
+                            }
+                            items.push({
+                                dataField: 'domain.title',
+                                label: {
+                                    text: 'زمینه'
+                                }
+                            })
+
+                            items.push({
+                                dataField: 'province.title',
+                                label: {
+                                    text: 'استان'
+                                }
+                            })
+
+                            if (e.row.data.hasOwnProperty("contractType")) {
+                                items.push({
+                                    dataField: 'contractType.title',
+                                    label: {
+                                        text: 'نوع قرار داد'
+                                    }
+                                })
+                            }
+
+                            return $("<div>").dxForm({
+                                colCount: 2,
+                                formData: e.row.data,
+                                items: items
+                            })
+                        })
+                        atalsItemPopUp.show();
+                    }
+                }]
+            }
         ]
+
     }
 
     $(".body-left-content").dxVectorMap(vectorMap);
-
+    
+    $(".atals-item-popup").dxPopup({
+        title: 'جزئیات',
+        showCloseButton: true,
+    });
 });

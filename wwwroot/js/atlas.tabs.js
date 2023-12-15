@@ -22,8 +22,10 @@ function setResult() {
             break;
     }
     makePostCall(url, {
+        text: localStorage.getItem('f.text'),
         provinceIds: arrayConverter(localStorage.getItem('f.province')),
         domainIds: arrayConverter(localStorage.getItem('f.domain')),
+        contractTypeIds: arrayConverter(localStorage.getItem('f.contractType')),
         isEnabled: localStorage.getItem('f.isEnabled') === 'true',
         isKnowledgeBased: localStorage.getItem('f.isKnowledgeBased') === 'true',
         hasSamta: localStorage.getItem('f.hasSamta') === 'true',
@@ -39,6 +41,25 @@ function setResult() {
     });
 
 
+}
+
+let text = {
+    name: 'text',
+    label: {
+        text: 'عنوان'
+    },
+    editorType: 'dxTextBox',
+    editorOptions: {
+        onContentReady: function (e) {
+            e.component.option('value', localStorage.getItem('f.text'))
+        },
+        onValueChanged: function (e) {
+            if (e.value === undefined || e.value.length === 0)
+                localStorage.removeItem("f.text")
+            else
+                localStorage.setItem('f.text', e.value);
+        }
+    }
 }
 
 let state = {
@@ -100,6 +121,36 @@ let domain = {
         }
     }
 }
+
+let contractType = {
+    label: {
+        text: 'نوع قرارداد'
+    },
+    editorType: 'dxTagBox',
+    editorOptions: {
+        valueExpr: "id",
+        displayExpr: 'title',
+        showSelectionControls: true,
+        dataSource: new DevExpress.data.CustomStore({
+            key: "id",
+            load: function (options) {
+                return devextremeLoadCall("/ContractTypes/List/", {}, false);
+            },
+            byKey: function (key) {
+                return devextremeByKeyCall(`/ContractTypes/Get/${key}`);
+            }
+        }),
+        onContentReady: function (e) {
+            e.component.option('value', arrayConverter(localStorage.getItem('f.contractType')))
+        },
+        onValueChanged: function (e) {
+            if (e.value === undefined || e.value.length === 0)
+                localStorage.removeItem("f.contractType")
+            else
+                localStorage.setItem('f.contractType', e.value);
+        }
+    }
+}
 let isEnabled = {
     label: {
         text: 'فعال'
@@ -137,25 +188,36 @@ let applyButton = {
         onClick: setResult
     }
 }
-let products = [state,
+let products = [
+    text,
+    state,
     domain,
     isEnabled,
     applyButton
 ];
 
-let researchers = [state,
+let researchers = [
+    text,
+    state,
     domain,
     isEnabled,
     applyButton
 ];
 
-let organizations = [state, domain,
+let organizations = [
+    text,
+    state,
+    domain,
     isKnowledgeBased,
     isEnabled,
     applyButton
 ];
 
-let companies = [state, domain,
+let companies = [
+    text,
+    state,
+    domain,
+    contractType,
     {
         label: {
             text: 'سمتا'
