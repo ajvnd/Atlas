@@ -34,7 +34,7 @@ $(function () {
             } else {
                 leftContent.dxDataGrid(grid)
             }
-            
+
             setResult();
         }
     });
@@ -66,6 +66,15 @@ $(function () {
 
     let grid = {
         keyExpr: 'id',
+        height: "100%",
+        pager: {
+            allowedPageSizes: [10, 20, 30, 40],
+            visible: true,
+        },
+        paging: {
+            enabled: true,
+            pageSize: 10
+        },
         columns: [
             {
                 name: 'id',
@@ -86,13 +95,13 @@ $(function () {
             {
                 name: 'domainId',
                 dataField: 'domainId',
-                caption: 'زمینه',
+                caption: 'حوزه همکاری',
                 calculateDisplayValue: 'domain.title',
             },
             {
                 name: 'provinceId',
                 dataField: 'provinceId',
-                caption: 'زمینه',
+                caption: 'استان',
                 calculateDisplayValue: 'province.title',
             },
             {
@@ -111,8 +120,10 @@ $(function () {
                     icon: 'arrowleft',
                     onClick(e) {
                         let atalsItemPopUp = $(".atals-item-popup").dxPopup('instance');
+
                         atalsItemPopUp.option('contentTemplate', () => {
                             let items = []
+
                             if (e.row.data.hasOwnProperty("title")) {
                                 items.push({
                                     dataField: 'title',
@@ -129,7 +140,6 @@ $(function () {
                                     }
                                 })
                             }
-
                             if (e.row.data.hasOwnProperty("lastName")) {
                                 items.push({
                                     dataField: 'lastName',
@@ -138,10 +148,11 @@ $(function () {
                                     }
                                 })
                             }
+
                             items.push({
                                 dataField: 'domain.title',
                                 label: {
-                                    text: 'زمینه'
+                                    text: 'حوزه همکاری'
                                 }
                             })
 
@@ -161,9 +172,60 @@ $(function () {
                                 })
                             }
 
+                            items.push({
+                                dataField: 'persianModifiedDate',
+
+                                label: {
+                                    text: 'تاریخ آخرین تغییر'
+                                }
+                            })
+                            if (e.row.data.hasOwnProperty("resume")) {
+
+                                items.push({
+                                    dataField: 'resume',
+                                    editorType: 'dxButton',
+                                    editorOptions: {
+                                        text: 'دریافت',
+                                        disabled: e.row.data.resume === null || e.row.data.resume === "",
+                                        onClick: function () {
+                                            window.open(e.row.data.resume, '_blank');
+                                        }
+                                    },
+                                    label: {
+                                        text: 'رزومه'
+                                    }
+                                })
+                            }
+
+                            if (e.row.data.hasOwnProperty("hasSamta")) {
+                                items.push({
+                                    dataField: 'hasSamta',
+                                    label: {
+                                        text: 'سمتا'
+                                    }
+                                })
+                            }
+
+                            if (e.row.data.hasOwnProperty("isKnowledgeBased")) {
+                                items.push({
+                                    dataField: 'isEnabled',
+                                    label: {
+                                        text: 'دانش بنیان'
+                                    }
+                                })
+                            }
+
+                            items.push({
+                                dataField: 'isEnabled',
+                                label: {
+                                    text: 'فعال'
+                                }
+                            })
+
                             return $("<div>").dxForm({
                                 colCount: 2,
                                 formData: e.row.data,
+                                labelLocation: "left",
                                 items: items
                             })
                         })
@@ -176,7 +238,7 @@ $(function () {
     }
 
     $(".body-left-content").dxVectorMap(vectorMap);
-    
+
     $(".atals-item-popup").dxPopup({
         title: 'جزئیات',
         showCloseButton: true,

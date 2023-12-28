@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.pt.js)
-* Version: 23.1.4
-* Build date: Fri Jul 14 2023
+* Version: 23.2.3
+* Build date: Tue Nov 28 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -141,6 +141,10 @@
             "dxDataGrid-sortingAscendingText": "Ordenar ascendentemente",
             "dxDataGrid-sortingDescendingText": "Ordenar descendentemente",
             "dxDataGrid-sortingClearText": "Limpar ordena\xe7\xe3o",
+            "dxDataGrid-ariaNotSortedColumn": "Not sorted column",
+            "dxDataGrid-ariaSortedAscendingColumn": "Column sorted in ascending order",
+            "dxDataGrid-ariaSortedDescendingColumn": "Column sorted in descending order",
+            "dxDataGrid-ariaSortIndex": "Sort index {0}",
             "dxDataGrid-editingSaveAllChanges": "Salvar todas as altera\xe7\xf5es",
             "dxDataGrid-editingCancelAllChanges": "Descartar altera\xe7\xf5es",
             "dxDataGrid-editingAddRow": "Adicionar uma linha",
@@ -172,20 +176,29 @@
             "dxDataGrid-ariaAdaptiveCollapse": "Ocultar dados adicionais",
             "dxDataGrid-ariaAdaptiveExpand": "Exibir dados adicionais",
             "dxDataGrid-ariaColumn": "Coluna",
+            "dxDataGrid-ariaColumnHeader": "Column header",
             "dxDataGrid-ariaValue": "Valor",
+            "dxDataGrid-ariaError": "Error",
+            "dxDataGrid-ariaRevertButton": "Press Escape to discard the changes",
             "dxDataGrid-ariaFilterCell": "Filtro de c\xe9lula",
             "dxDataGrid-ariaCollapse": "Contrair",
+            "dxDataGrid-ariaModifiedCell": "Modified",
+            "dxDataGrid-ariaDeletedCell": "Deleted",
+            "dxDataGrid-ariaEditableCell": "Editable",
             "dxDataGrid-ariaExpand": "Expandir",
+            "dxDataGrid-ariaCollapsedRow": "Collapsed row",
+            "dxDataGrid-ariaExpandedRow": "Expanded row",
             "dxDataGrid-ariaDataGrid": "Grelha de dados",
             "dxDataGrid-ariaSearchInGrid": "Pesquisar na grade de dados",
             "dxDataGrid-ariaSelectAll": "Selecionar todos",
             "dxDataGrid-ariaSelectRow": "Selecionar linha",
             "dxDataGrid-ariaToolbar": "Data grid toolbar",
+            "dxDataGrid-ariaEditForm": "Edit form",
             "dxDataGrid-filterBuilderPopupTitle": "Construtor de filtro",
             "dxDataGrid-filterPanelCreateFilter": "Criar filtro",
             "dxDataGrid-filterPanelClearFilter": "Limpar",
             "dxDataGrid-filterPanelFilterEnabledHint": "Habilitar o filtro",
-            "dxTreeList-ariaTreeList": "Lista em \xe1rvore",
+            "dxTreeList-ariaTreeList": "Tree list with {0} rows and {1} columns",
             "dxTreeList-ariaSearchInGrid": "Pesquisar na lista de \xe1rvores",
             "dxTreeList-ariaToolbar": "Barra de ferramentas da lista de \xe1rvores",
             "dxTreeList-editingAddRowToNode": "Adicionar",
@@ -254,6 +267,8 @@
             "dxScheduler-recurrenceRepeatOnDate": "na data",
             "dxScheduler-recurrenceRepeatCount": "ocorr\xeancia(s)",
             "dxScheduler-allDay": "Todo o dia",
+            "dxScheduler-confirmRecurrenceEditTitle": "Edit Recurring Appointment",
+            "dxScheduler-confirmRecurrenceDeleteTitle": "Delete Recurring Appointment",
             "dxScheduler-confirmRecurrenceEditMessage": "Deseja editar s\xf3 este compromisso ou a s\xe9rie toda?",
             "dxScheduler-confirmRecurrenceDeleteMessage": "Deseja eliminar s\xf3 este compromisso ou a s\xe9rie toda?",
             "dxScheduler-confirmRecurrenceEditSeries": "Editar s\xe9rie",
@@ -264,7 +279,18 @@
             "dxScheduler-moreAppointments": "{0} mais",
             "dxCalendar-todayButtonText": "Hoje",
             "dxCalendar-ariaWidgetName": "Calend\xe1rio",
-            "dxCalendar-ariaHotKeysInfo": "Para navegar entre as exibi\xe7\xf5es, pressione Control e, em seguida, Seta para a esquerda ou Seta para a direita. Para aumentar o zoom em uma visualiza\xe7\xe3o, pressione Control e, em seguida, a seta para baixo. Para diminuir o zoom, pressione Control e, em seguida, Seta para cima.",
+            "dxCalendar-previousMonthButtonLabel": "Previous month",
+            "dxCalendar-previousYearButtonLabel": "Previous year",
+            "dxCalendar-previousDecadeButtonLabel": "Previous decade",
+            "dxCalendar-previousCenturyButtonLabel": "Previous century",
+            "dxCalendar-nextMonthButtonLabel": "Next month",
+            "dxCalendar-nextYearButtonLabel": "Next year",
+            "dxCalendar-nextDecadeButtonLabel": "Next decade",
+            "dxCalendar-nextCenturyButtonLabel": "Next century",
+            "dxCalendar-captionMonthLabel": "Month selection",
+            "dxCalendar-captionYearLabel": "Year selection",
+            "dxCalendar-captionDecadeLabel": "Decade selection",
+            "dxCalendar-captionCenturyLabel": "Century selection",
             "dxColorView-ariaRed": "Vermelho",
             "dxColorView-ariaGreen": "Verde",
             "dxColorView-ariaBlue": "Azul",
@@ -642,7 +668,12 @@
             "dxGantt-showResources": "Mostrar recursos",
             "dxGantt-showDependencies": "Mostrar depend\xeancias",
             "dxGantt-dialogStartDateValidation": "A data de in\xedcio deve ser ap\xf3s {0}",
-            "dxGantt-dialogEndDateValidation": "A data de t\xe9rmino deve ser posterior a {0}"
+            "dxGantt-dialogEndDateValidation": "A data de t\xe9rmino deve ser posterior a {0}",
+            "dxGallery-itemName": "Gallery item",
+            "dxMultiView-elementAriaRoleDescription": "MultiView",
+            "dxMultiView-elementAriaLabel": "Use the arrow keys or swipe to navigate between views",
+            "dxMultiView-itemAriaRoleDescription": "View",
+            "dxMultiView-itemAriaLabel": "{0} of {1}"
         }
     })
 }));

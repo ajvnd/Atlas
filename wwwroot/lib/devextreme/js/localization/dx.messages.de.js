@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.de.js)
-* Version: 23.1.4
-* Build date: Fri Jul 14 2023
+* Version: 23.2.3
+* Build date: Tue Nov 28 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -141,6 +141,10 @@
             "dxDataGrid-sortingAscendingText": "Aufsteigend sortieren",
             "dxDataGrid-sortingDescendingText": "Absteigend sortieren",
             "dxDataGrid-sortingClearText": "Sortierung aufheben",
+            "dxDataGrid-ariaNotSortedColumn": "Not sorted column",
+            "dxDataGrid-ariaSortedAscendingColumn": "Column sorted in ascending order",
+            "dxDataGrid-ariaSortedDescendingColumn": "Column sorted in descending order",
+            "dxDataGrid-ariaSortIndex": "Sort index {0}",
             "dxDataGrid-editingSaveAllChanges": "\xc4nderungen speichern",
             "dxDataGrid-editingCancelAllChanges": "\xc4nderungen verwerfen",
             "dxDataGrid-editingAddRow": "Neue Zeile",
@@ -172,20 +176,29 @@
             "dxDataGrid-ariaAdaptiveCollapse": "Zus\xe4tzliche Spalten verstecken",
             "dxDataGrid-ariaAdaptiveExpand": "Zus\xe4tzliche Spalten anzeigen",
             "dxDataGrid-ariaColumn": "Spalte",
+            "dxDataGrid-ariaColumnHeader": "Column header",
             "dxDataGrid-ariaValue": "Wert",
+            "dxDataGrid-ariaError": "Error",
+            "dxDataGrid-ariaRevertButton": "Press Escape to discard the changes",
             "dxDataGrid-ariaFilterCell": "Filterzelle",
             "dxDataGrid-ariaCollapse": "Zusammenklappen",
+            "dxDataGrid-ariaModifiedCell": "Modified",
+            "dxDataGrid-ariaDeletedCell": "Deleted",
+            "dxDataGrid-ariaEditableCell": "Editable",
             "dxDataGrid-ariaExpand": "Aufklappen",
+            "dxDataGrid-ariaCollapsedRow": "Collapsed row",
+            "dxDataGrid-ariaExpandedRow": "Expanded row",
             "dxDataGrid-ariaDataGrid": "Datentabelle mit {0} Zeilen und {1} Spalten",
             "dxDataGrid-ariaSearchInGrid": "Suchen in der Datentabelle",
             "dxDataGrid-ariaSelectAll": "Alle ausw\xe4hlen",
             "dxDataGrid-ariaSelectRow": "Zeile ausw\xe4hlen",
             "dxDataGrid-ariaToolbar": "Symbolleiste der Datentabelle",
+            "dxDataGrid-ariaEditForm": "Edit form",
             "dxDataGrid-filterBuilderPopupTitle": "Filter-Generator",
             "dxDataGrid-filterPanelCreateFilter": "Filter erzeugen",
             "dxDataGrid-filterPanelClearFilter": "Zur\xfccksetzen",
             "dxDataGrid-filterPanelFilterEnabledHint": "Filter aktivieren",
-            "dxTreeList-ariaTreeList": "Strukturliste",
+            "dxTreeList-ariaTreeList": "TreeList mit {0} Zeilen und {1} Spalten",
             "dxTreeList-ariaSearchInGrid": "Suchen in der Strukturliste",
             "dxTreeList-ariaToolbar": "Symbolleiste der Strukturliste",
             "dxTreeList-editingAddRowToNode": "Hinzuf\xfcgen",
@@ -254,6 +267,8 @@
             "dxScheduler-recurrenceRepeatOnDate": "am Datum",
             "dxScheduler-recurrenceRepeatCount": "Ereignisse",
             "dxScheduler-allDay": "Ganzt\xe4gig",
+            "dxScheduler-confirmRecurrenceEditTitle": "Edit Recurring Appointment",
+            "dxScheduler-confirmRecurrenceDeleteTitle": "Delete Recurring Appointment",
             "dxScheduler-confirmRecurrenceEditMessage": "M\xf6chten Sie nur diesen Termin bearbeiten, oder die gesamte Serie?",
             "dxScheduler-confirmRecurrenceDeleteMessage": "M\xf6chten Sie nur diesen Termin l\xf6schen, oder die gesamte Serie?",
             "dxScheduler-confirmRecurrenceEditSeries": "Serie bearbeiten",
@@ -264,7 +279,18 @@
             "dxScheduler-moreAppointments": "{0} weitere",
             "dxCalendar-todayButtonText": "Heute",
             "dxCalendar-ariaWidgetName": "Kalendar",
-            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
+            "dxCalendar-previousMonthButtonLabel": "Previous month",
+            "dxCalendar-previousYearButtonLabel": "Previous year",
+            "dxCalendar-previousDecadeButtonLabel": "Previous decade",
+            "dxCalendar-previousCenturyButtonLabel": "Previous century",
+            "dxCalendar-nextMonthButtonLabel": "Next month",
+            "dxCalendar-nextYearButtonLabel": "Next year",
+            "dxCalendar-nextDecadeButtonLabel": "Next decade",
+            "dxCalendar-nextCenturyButtonLabel": "Next century",
+            "dxCalendar-captionMonthLabel": "Month selection",
+            "dxCalendar-captionYearLabel": "Year selection",
+            "dxCalendar-captionDecadeLabel": "Decade selection",
+            "dxCalendar-captionCenturyLabel": "Century selection",
             "dxColorView-ariaRed": "Rot",
             "dxColorView-ariaGreen": "Gr\xfcn",
             "dxColorView-ariaBlue": "Blau",
@@ -642,7 +668,12 @@
             "dxGantt-showResources": "Ressourcen Anzeigen",
             "dxGantt-showDependencies": "Abh\xe4ngigkeiten Anzeigen",
             "dxGantt-dialogStartDateValidation": "Startdatum muss sp\xe4ter sein als {0}",
-            "dxGantt-dialogEndDateValidation": "Enddatum muss sp\xe4ter sein als {0}"
+            "dxGantt-dialogEndDateValidation": "Enddatum muss sp\xe4ter sein als {0}",
+            "dxGallery-itemName": "Gallery item",
+            "dxMultiView-elementAriaRoleDescription": "MultiView",
+            "dxMultiView-elementAriaLabel": "Use the arrow keys or swipe to navigate between views",
+            "dxMultiView-itemAriaRoleDescription": "View",
+            "dxMultiView-itemAriaLabel": "{0} of {1}"
         }
     })
 }));

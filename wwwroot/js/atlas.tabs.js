@@ -208,8 +208,14 @@ let organizations = [
     text,
     state,
     domain,
-    isKnowledgeBased,
-    isEnabled,
+    {
+        itemType: 'group',
+        colCount: 2,
+        items: [
+            isKnowledgeBased,
+            isEnabled,
+        ]
+    },
     applyButton
 ];
 
@@ -219,21 +225,27 @@ let companies = [
     domain,
     contractType,
     {
-        label: {
-            text: 'سمتا'
-        },
-        editorType: 'dxSwitch',
-        editorOptions: {
-            onContentReady: function (e) {
-                e.component.option('value', Boolean(localStorage.getItem('f.hasSamta')))
+        itemType: 'group',
+        colCount: 3,
+        items: [
+            {
+                label: {
+                    text: 'سمتا'
+                },
+                editorType: 'dxSwitch',
+                editorOptions: {
+                    onContentReady: function (e) {
+                        e.component.option('value', Boolean(localStorage.getItem('f.hasSamta')))
+                    },
+                    onValueChanged(e) {
+                        localStorage.setItem('f.hasSamta', e.value);
+                    }
+                }
             },
-            onValueChanged(e) {
-                localStorage.setItem('f.hasSamta', e.value);
-            }
-        }
+            isKnowledgeBased,
+            isEnabled,
+        ]
     },
-    isKnowledgeBased,
-    isEnabled,
     applyButton
 ];
 

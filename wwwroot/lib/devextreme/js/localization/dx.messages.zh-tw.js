@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.zh-tw.js)
-* Version: 23.1.4
-* Build date: Fri Jul 14 2023
+* Version: 23.2.3
+* Build date: Tue Nov 28 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -141,6 +141,10 @@
             "dxDataGrid-sortingAscendingText": "\u905e\u589e\u6392\u5e8f",
             "dxDataGrid-sortingDescendingText": "\u905e\u6e1b\u6392\u5e8f",
             "dxDataGrid-sortingClearText": "\u6e05\u9664\u6392\u5e8f",
+            "dxDataGrid-ariaNotSortedColumn": "Not sorted column",
+            "dxDataGrid-ariaSortedAscendingColumn": "Column sorted in ascending order",
+            "dxDataGrid-ariaSortedDescendingColumn": "Column sorted in descending order",
+            "dxDataGrid-ariaSortIndex": "Sort index {0}",
             "dxDataGrid-editingSaveAllChanges": "\u4fdd\u5b58\u4fee\u6539",
             "dxDataGrid-editingCancelAllChanges": "\u653e\u68c4\u4fee\u6539",
             "dxDataGrid-editingAddRow": "\u6dfb\u52a0\u4e00\u5217",
@@ -172,20 +176,29 @@
             "dxDataGrid-ariaAdaptiveCollapse": "Hide additional data",
             "dxDataGrid-ariaAdaptiveExpand": "Display additional data",
             "dxDataGrid-ariaColumn": "\u6b04",
+            "dxDataGrid-ariaColumnHeader": "Column header",
             "dxDataGrid-ariaValue": "\u503c",
+            "dxDataGrid-ariaError": "Error",
+            "dxDataGrid-ariaRevertButton": "Press Escape to discard the changes",
             "dxDataGrid-ariaFilterCell": "\u904e\u6ffe\u55ae\u5143",
             "dxDataGrid-ariaCollapse": "\u647a\u758a",
+            "dxDataGrid-ariaModifiedCell": "Modified",
+            "dxDataGrid-ariaDeletedCell": "Deleted",
+            "dxDataGrid-ariaEditableCell": "Editable",
             "dxDataGrid-ariaExpand": "\u5c55\u958b",
+            "dxDataGrid-ariaCollapsedRow": "Collapsed row",
+            "dxDataGrid-ariaExpandedRow": "Expanded row",
             "dxDataGrid-ariaDataGrid": "\u8cc7\u6599\u7db2\u683c",
             "dxDataGrid-ariaSearchInGrid": "\u5728\u8cc7\u6599\u7db2\u683c\u4e2d\u641c\u5c0b",
             "dxDataGrid-ariaSelectAll": "\u5168\u9078",
             "dxDataGrid-ariaSelectRow": "\u9078\u64c7\u5217",
             "dxDataGrid-ariaToolbar": "Data grid toolbar",
+            "dxDataGrid-ariaEditForm": "Edit form",
             "dxDataGrid-filterBuilderPopupTitle": "\u904e\u6ffe\u5668\u751f\u6210\u5668",
             "dxDataGrid-filterPanelCreateFilter": "\u5275\u5efa\u904e\u6ffe\u5668",
             "dxDataGrid-filterPanelClearFilter": "\u6e05\u7a7a",
             "dxDataGrid-filterPanelFilterEnabledHint": "\u555f\u7528\u8a72\u904e\u6ffe\u5668",
-            "dxTreeList-ariaTreeList": "\u6a39\u72c0\u5217\u8868",
+            "dxTreeList-ariaTreeList": "Tree list with {0} rows and {1} columns",
             "dxTreeList-ariaSearchInGrid": "Search in the tree list",
             "dxTreeList-ariaToolbar": "Tree list toolbar",
             "dxTreeList-editingAddRowToNode": "\u6dfb\u52a0",
@@ -254,6 +267,8 @@
             "dxScheduler-recurrenceRepeatOnDate": "\u65bc\u65e5\u671f",
             "dxScheduler-recurrenceRepeatCount": "\u4e8b\u4ef6",
             "dxScheduler-allDay": "\u5168\u5929",
+            "dxScheduler-confirmRecurrenceEditTitle": "Edit Recurring Appointment",
+            "dxScheduler-confirmRecurrenceDeleteTitle": "Delete Recurring Appointment",
             "dxScheduler-confirmRecurrenceEditMessage": "\u4f60\u60f3\u53ea\u4fee\u6539\u8a72\u65e5\u7a0b\u9084\u662f\u60f3\u4fee\u6539\u6574\u500b\u7cfb\u5217\u7684\u65e5\u7a0b?",
             "dxScheduler-confirmRecurrenceDeleteMessage": "\u4f60\u60f3\u53ea\u522a\u9664\u9019\u500b\u65e5\u7a0b\u9084\u662f\u60f3\u522a\u9664\u6574\u500b\u7cfb\u5217\u7684\u65e5\u7a0b?",
             "dxScheduler-confirmRecurrenceEditSeries": "\u4fee\u6539\u8a72\u7cfb\u5217\u7684\u65e5\u7a0b",
@@ -264,7 +279,18 @@
             "dxScheduler-moreAppointments": "{0} \u66f4\u591a",
             "dxCalendar-todayButtonText": "\u4eca\u5929",
             "dxCalendar-ariaWidgetName": "\u65e5\u66c6",
-            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
+            "dxCalendar-previousMonthButtonLabel": "Previous month",
+            "dxCalendar-previousYearButtonLabel": "Previous year",
+            "dxCalendar-previousDecadeButtonLabel": "Previous decade",
+            "dxCalendar-previousCenturyButtonLabel": "Previous century",
+            "dxCalendar-nextMonthButtonLabel": "Next month",
+            "dxCalendar-nextYearButtonLabel": "Next year",
+            "dxCalendar-nextDecadeButtonLabel": "Next decade",
+            "dxCalendar-nextCenturyButtonLabel": "Next century",
+            "dxCalendar-captionMonthLabel": "Month selection",
+            "dxCalendar-captionYearLabel": "Year selection",
+            "dxCalendar-captionDecadeLabel": "Decade selection",
+            "dxCalendar-captionCenturyLabel": "Century selection",
             "dxColorView-ariaRed": "\u7d05\u8272",
             "dxColorView-ariaGreen": "\u7da0\u8272",
             "dxColorView-ariaBlue": "\u85cd\u8272",
@@ -642,7 +668,12 @@
             "dxGantt-showResources": "Show Resources",
             "dxGantt-showDependencies": "Show Dependencies",
             "dxGantt-dialogStartDateValidation": "Start date must be after {0}",
-            "dxGantt-dialogEndDateValidation": "End date must be after {0}"
+            "dxGantt-dialogEndDateValidation": "End date must be after {0}",
+            "dxGallery-itemName": "Gallery item",
+            "dxMultiView-elementAriaRoleDescription": "MultiView",
+            "dxMultiView-elementAriaLabel": "Use the arrow keys or swipe to navigate between views",
+            "dxMultiView-itemAriaRoleDescription": "View",
+            "dxMultiView-itemAriaLabel": "{0} of {1}"
         }
     })
 }));

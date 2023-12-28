@@ -1,7 +1,7 @@
 /*!
 * DevExtreme (dx.messages.tr.js)
-* Version: 23.1.4
-* Build date: Fri Jul 14 2023
+* Version: 23.2.3
+* Build date: Tue Nov 28 2023
 *
 * Copyright (c) 2012 - 2023 Developer Express Inc. ALL RIGHTS RESERVED
 * Read about DevExtreme licensing here: https://js.devexpress.com/Licensing/
@@ -141,6 +141,10 @@
             "dxDataGrid-sortingAscendingText": "Artan S\u0131ralama",
             "dxDataGrid-sortingDescendingText": "Azalan S\u0131ralama",
             "dxDataGrid-sortingClearText": "S\u0131ralamay\u0131 Temizle",
+            "dxDataGrid-ariaNotSortedColumn": "Not sorted column",
+            "dxDataGrid-ariaSortedAscendingColumn": "Column sorted in ascending order",
+            "dxDataGrid-ariaSortedDescendingColumn": "Column sorted in descending order",
+            "dxDataGrid-ariaSortIndex": "Sort index {0}",
             "dxDataGrid-editingSaveAllChanges": "De\u011fi\u015fiklikleri Kaydet",
             "dxDataGrid-editingCancelAllChanges": "De\u011fi\u015fiklikleri iptal et",
             "dxDataGrid-editingAddRow": "Sat\u0131r ekle",
@@ -172,20 +176,29 @@
             "dxDataGrid-ariaAdaptiveCollapse": "Hide additional data",
             "dxDataGrid-ariaAdaptiveExpand": "Display additional data",
             "dxDataGrid-ariaColumn": "S\xfctun",
+            "dxDataGrid-ariaColumnHeader": "Column header",
             "dxDataGrid-ariaValue": "Veri",
+            "dxDataGrid-ariaError": "Error",
+            "dxDataGrid-ariaRevertButton": "Press Escape to discard the changes",
             "dxDataGrid-ariaFilterCell": "Filtre h\xfccresi",
             "dxDataGrid-ariaCollapse": "Daralt",
+            "dxDataGrid-ariaModifiedCell": "Modified",
+            "dxDataGrid-ariaDeletedCell": "Deleted",
+            "dxDataGrid-ariaEditableCell": "Editable",
             "dxDataGrid-ariaExpand": "Geni\u015flet",
+            "dxDataGrid-ariaCollapsedRow": "Collapsed row",
+            "dxDataGrid-ariaExpandedRow": "Expanded row",
             "dxDataGrid-ariaDataGrid": "Tablo",
             "dxDataGrid-ariaSearchInGrid": "Tabloda ara",
             "dxDataGrid-ariaSelectAll": "Hepsini se\xe7",
             "dxDataGrid-ariaSelectRow": "Sat\u0131r\u0131 se\xe7",
             "dxDataGrid-ariaToolbar": "Data grid toolbar",
+            "dxDataGrid-ariaEditForm": "Edit form",
             "dxDataGrid-filterBuilderPopupTitle": "Filtre Olu\u015fturucu",
             "dxDataGrid-filterPanelCreateFilter": "Filtre Olu\u015ftur",
             "dxDataGrid-filterPanelClearFilter": "Temizle",
             "dxDataGrid-filterPanelFilterEnabledHint": "Filtreyi etkinle\u015ftir",
-            "dxTreeList-ariaTreeList": "A\u011fa\xe7 listesi",
+            "dxTreeList-ariaTreeList": "Tree list with {0} rows and {1} columns",
             "dxTreeList-ariaSearchInGrid": "Search in the tree list",
             "dxTreeList-ariaToolbar": "Tree list toolbar",
             "dxTreeList-editingAddRowToNode": "Ekle",
@@ -254,6 +267,8 @@
             "dxScheduler-recurrenceRepeatOnDate": "tarihinde",
             "dxScheduler-recurrenceRepeatCount": "olaylar",
             "dxScheduler-allDay": "T\xfcm g\xfcn",
+            "dxScheduler-confirmRecurrenceEditTitle": "Edit Recurring Appointment",
+            "dxScheduler-confirmRecurrenceDeleteTitle": "Delete Recurring Appointment",
             "dxScheduler-confirmRecurrenceEditMessage": "Yaln\u0131zca bu randevuyu veya t\xfcm diziyi d\xfczenlemek ister misiniz?",
             "dxScheduler-confirmRecurrenceDeleteMessage": "Yaln\u0131zca bu randevuyu veya t\xfcm diziyi silmek istiyor musunuz?",
             "dxScheduler-confirmRecurrenceEditSeries": "Serileri d\xfczenle",
@@ -264,7 +279,18 @@
             "dxScheduler-moreAppointments": "{0} daha",
             "dxCalendar-todayButtonText": "Bug\xfcn",
             "dxCalendar-ariaWidgetName": "Takvim",
-            "dxCalendar-ariaHotKeysInfo": "To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow.",
+            "dxCalendar-previousMonthButtonLabel": "Previous month",
+            "dxCalendar-previousYearButtonLabel": "Previous year",
+            "dxCalendar-previousDecadeButtonLabel": "Previous decade",
+            "dxCalendar-previousCenturyButtonLabel": "Previous century",
+            "dxCalendar-nextMonthButtonLabel": "Next month",
+            "dxCalendar-nextYearButtonLabel": "Next year",
+            "dxCalendar-nextDecadeButtonLabel": "Next decade",
+            "dxCalendar-nextCenturyButtonLabel": "Next century",
+            "dxCalendar-captionMonthLabel": "Month selection",
+            "dxCalendar-captionYearLabel": "Year selection",
+            "dxCalendar-captionDecadeLabel": "Decade selection",
+            "dxCalendar-captionCenturyLabel": "Century selection",
             "dxColorView-ariaRed": "K\u0131rm\u0131z\u0131",
             "dxColorView-ariaGreen": "Ye\u015fil",
             "dxColorView-ariaBlue": "Mavi",
@@ -642,7 +668,12 @@
             "dxGantt-showResources": "Show Resources",
             "dxGantt-showDependencies": "Show Dependencies",
             "dxGantt-dialogStartDateValidation": "Start date must be after {0}",
-            "dxGantt-dialogEndDateValidation": "End date must be after {0}"
+            "dxGantt-dialogEndDateValidation": "End date must be after {0}",
+            "dxGallery-itemName": "Gallery item",
+            "dxMultiView-elementAriaRoleDescription": "MultiView",
+            "dxMultiView-elementAriaLabel": "Use the arrow keys or swipe to navigate between views",
+            "dxMultiView-itemAriaRoleDescription": "View",
+            "dxMultiView-itemAriaLabel": "{0} of {1}"
         }
     })
 }));

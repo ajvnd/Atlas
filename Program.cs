@@ -1,5 +1,4 @@
 using Atlas.Configurations;
-using Atlas.Controllers;
 using Atlas.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;

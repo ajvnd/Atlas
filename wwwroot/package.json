@@ -2,7 +2,7 @@
   "name": "wwwroot",
   "version": "1.0.0",
   "dependencies": {
-    "devextreme-dist": "^23.1.4",
-    "jquery": "^3.7.0"
+    "devextreme-dist": "^23.2.3",
+    "jquery": "^3.7.1"
   }
 }
